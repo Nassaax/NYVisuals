@@ -2,6 +2,4 @@ node_modules/
 .DS_Store
 site/captures/
 # Captures de projets pas encore validés (dépôt public) : régénérer avec site/outils/captures-realisations.cjs
-site/src/img/realisations/lallat-*
 site/src/img/realisations/lux-*
-site/src/img/realisations/pilotia-*
