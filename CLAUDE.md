@@ -65,9 +65,16 @@ Skills : `motionsites-web-builder` pour design et mouvement ; `logo-design` pour
 - `config/studio.json` : nom du studio, accroche, couleurs (source unique).
 - `logo/` : pistes de logo, générateur, fichiers finaux.
 - `kit/` : gabarit réutilisable pour un nouveau client (à venir).
-- `documents/` : modèles (brief, offres A et B, fiche de remise) — brouillons à faire relire (à venir).
+- `documents/` : procédure client, questionnaire de démarrage, modèle de liste de choses à faire ; `node documents/build.mjs` → PDF dans `documents/pdf/`. À venir : offres A et B, fiche de remise (brouillons à faire relire).
+- `clients/<nom>/` : `fiche.md` (brief, choix, retouches) et `todo.md` de chaque client.
+
+## Lancer un nouveau client (phrase clé)
+- **« Nouveau client : [nom] »** (ou `/nouveau-client [nom]`) lance la procédure : suivre `.claude/skills/nouveau-client/SKILL.md` et `documents/procedure-client.md`.
+- **« Client [nom] : on continue »** reprend un client existant : relire sa `fiche.md` et sa `todo.md`, résumer où on en est, proposer la suite.
+- Nasser peut donner les infos en vrac (texte, réponses du client, fichiers) : je range, je repère ce qui manque et je pose les questions une seule fois.
 
 ## Site du studio (`site/`)
+- **Contact** : les prospects écrivent sur la **messagerie Instagram** de Nasser (`contact.instagram`, pseudo sans @) : le formulaire copie le message puis ouvre la conversation (ig.me). WhatsApp et e-mail restent possibles en secours. Le site dit « **Basé à Liège** », sans insister sur la ville ailleurs.
 - **Positionnement** : NY Visuals vend une image complète (logo, identité, site, visuels réseaux), pas seulement des sites. Slogan : **« Des visuels qui marquent. »** (choisi le 19/11/2026). Un seul appel à l'action principal : « Parlons de votre projet ».
 - **Fichiers** : `site/build.mjs` (page HTML et textes), `site/src/styles.css`, `site/src/app.js`, `site/src/img/realisations/` (vraies captures). Le site généré est dans `site/dist/` (enregistré dans le dépôt, servi par Vercel). `vercel.json` est généré par le build.
 - **Commandes** : `npm run build` (logos + site), `npm test` (tests navigateur + captures dans `site/captures/`, non enregistrées).
