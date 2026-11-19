@@ -1,0 +1,12 @@
+{
+  "name": "studio-web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "logo": "node logo/build.mjs"
+  },
+  "devDependencies": {
+    "@fontsource/plus-jakarta-sans": "^5.2.0",
+    "opentype.js": "^1.3.4"
+  }
+}

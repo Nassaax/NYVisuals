@@ -1,0 +1,15 @@
+{
+  "_note": "Seul endroit où le nom du studio est écrit. Après modification : node logo/build.mjs",
+  "nom": "NY Visuals",
+  "sigle": "NYV",
+  "monogramme": "NY",
+  "mot": "Visuals",
+  "accroche": "Sites web qui font waw, pensés pour vos clients.",
+  "zone": "Liège · Wallonie",
+  "couleurs": {
+    "papier": "#F5F3EE",
+    "nuit": "#0B1324",
+    "encre": "#0B1324",
+    "accent": "#FF5B2E"
+  }
+}
