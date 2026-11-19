@@ -7,7 +7,9 @@
     "logo": "node logo/build.mjs",
     "site": "node site/build.mjs",
     "test": "node site/test.mjs",
-    "documents": "node documents/build.mjs"
+    "documents": "node documents/build.mjs",
+    "kit:exemple": "node kit/modele/build.mjs --config kit/exemple/client.json --out kit/exemple/dist",
+    "kit:test": "node kit/modele/test.mjs --dist kit/exemple/dist --out kit/exemple/captures"
   },
   "devDependencies": {
     "@fontsource/inter": "^5.3.0",

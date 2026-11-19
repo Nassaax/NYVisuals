@@ -64,7 +64,7 @@ Skills : `motionsites-web-builder` pour design et mouvement ; `logo-design` pour
 ## Organisation de ce dépôt
 - `config/studio.json` : nom du studio, accroche, couleurs (source unique).
 - `logo/` : pistes de logo, générateur, fichiers finaux.
-- `kit/` : gabarit réutilisable pour un nouveau client (à venir).
+- `kit/` : **kit de départ** des sites clients (voir `kit/README.md`). `kit/modele/` = gabarit (une fiche `client.json` → site complet + tests), `kit/nouveau-site.mjs` = crée le site d'un client dans le clone de son dépôt, `kit/exemple/` = entreprise imaginaire pour vérifier le kit (`npm run kit:exemple`, `npm run kit:test`).
 - `documents/` : procédure client, questionnaire de démarrage, modèle de liste de choses à faire ; `node documents/build.mjs` → PDF dans `documents/pdf/`. À venir : offres A et B, fiche de remise (brouillons à faire relire).
 - `clients/<nom>/` : `fiche.md` (brief, choix, retouches) et `todo.md` de chaque client.
 

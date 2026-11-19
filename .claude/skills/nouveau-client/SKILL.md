@@ -28,7 +28,13 @@ Pose les questions **une seule fois, regroupées**, avec des choix à cocher et 
 
 Suis la procédure de `documents/procedure-client.md` et coche `todo.md` à chaque étape :
 - **Logo** (si besoin) : 2 ou 3 pistes avec animation d'ouverture, captures image par image, puis fichiers finaux et mini-charte (même méthode que `logo/` pour NY Visuals).
-- **Démo** : demande à Nasser de créer un dépôt GitHub privé vide nommé `<dossier>-site` et de te donner son nom. Construis le site avec la recette du `CLAUDE.md` (même base que `site/` : réglages à un seul endroit, écran d'ouverture, barre d'onglets mobile, formulaire WhatsApp, tests). Mets-le en ligne sur Vercel en `noindex`, lance les tests, envoie les captures.
+- **Démo** (avec le kit, voir `kit/README.md`) :
+  1. Remplis `clients/<dossier>/client.json` à partir de `kit/modele/client.json` et de la fiche (rien d'inventé : un champ inconnu reste vide). Range logo et photos du client dans `clients/<dossier>/photos/`.
+  2. Demande à Nasser de créer un dépôt GitHub privé vide nommé `<dossier>-site` et de te donner son nom ; ajoute-le à la session et clone-le.
+  3. `node kit/nouveau-site.mjs <clone> --client clients/<dossier>/client.json`, puis dans le clone `npm install`, `npm run build`, `npm test`.
+  4. Regarde toi-même les captures, corrige, puis envoie à Nasser : ordinateur, mobile, ouverture image par image.
+  5. Mets la démo en ligne sur Vercel (projet relié au dépôt), en `noindex`.
+  6. Si le client le mérite : animation de logo sur mesure, pages en plus, simulateur (comme Jumeo).
 - **Retouches** : note chaque demande dans `fiche.md` (section « Retouches »), fais-les, renvoie les captures.
 - **Mise en ligne** : vérifie les mentions légales sur une source officielle belge, politique de confidentialité au nom du client, nom de domaine, référencement activé.
 - **Remise** : prépare la fiche de remise.

@@ -3,3 +3,6 @@ node_modules/
 site/captures/
 # Captures de projets pas encore validés (dépôt public) : régénérer avec site/outils/captures-realisations.cjs
 site/src/img/realisations/lux-*
+kit/exemple/dist/
+kit/exemple/captures/
+kit/exemple/vercel.json

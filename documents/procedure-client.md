@@ -17,7 +17,7 @@ Pour reprendre un client plus tard : **Client [nom] : on continue**
 |---|---|---|
 | 1. Brief | Tu envoies le questionnaire au client (`documents/pdf/brief-client.pdf`) et tu me transmets ses réponses. | Je crée sa fiche et sa liste de choses à faire, je repère ce qui manque et je te pose les questions en une seule fois. |
 | 2. Logo (si besoin) | Tu montres les pistes au client et tu me dis laquelle il choisit. | Je dessine 2 ou 3 pistes avec leur animation, puis les fichiers finaux et la mini-charte. |
-| 3. Démo | Tu crées un dépôt GitHub privé vide (je te dis le nom à utiliser) et tu me le donnes. | Je construis le site complet à ses couleurs, je le mets en ligne sur une adresse provisoire non référencée, je teste et je t'envoie les captures. |
+| 3. Démo | Tu crées un dépôt GitHub privé vide (je te dis le nom à utiliser) et tu me le donnes. | Je remplis sa fiche de réglages, je génère son site avec le kit, je le peaufine, je le mets en ligne sur une adresse provisoire non référencée, je teste et je t'envoie les captures. |
 | 4. Retouches | Tu me transmets les demandes du client. | Je fais les retouches et je t'envoie les nouvelles captures. |
 | 5. Mise en ligne | Tu choisis la formule avec le client, tu fais signer le devis ou le contrat. | Je vérifie les mentions légales, je branche le nom de domaine, j'active le référencement. |
 | 6. Remise | Tu envoies la fiche de remise et ta facture. | Je prépare la fiche de remise. |

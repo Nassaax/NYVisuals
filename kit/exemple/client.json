@@ -1,0 +1,38 @@
+{
+  "_aide": "Exemple FICTIF pour tester le kit. Chaque client a sa propre fiche client.json : tout le site se règle ici.",
+  "exemple": true,
+  "nom": "Atelier Boréal",
+  "metier": "Menuiserie sur mesure",
+  "zone": "Basé à Herstal",
+  "zone_detail": "Liège et environs",
+  "slogan": "Du sur-mesure, posé avec soin.",
+  "accroche": "Cuisines, escaliers et dressings fabriqués à l'atelier, de la prise de mesures à la pose.",
+  "cta": { "principal": "Demander un devis", "court": "Devis" },
+  "couleurs": { "accent": "#2F7A55", "papier": "#F6F4EF", "nuit": "#10161F", "fond_hero": "nuit" },
+  "logo": { "fichier": "", "initiales": "AB" },
+  "contact": { "whatsapp": "", "telephone_affiche": "", "email": "" },
+  "horaires": ["Lundi au vendredi : 8 h – 17 h", "Samedi : sur rendez-vous"],
+  "reseaux": { "instagram": "", "facebook": "", "linkedin": "" },
+  "atouts": ["Fabrication à l'atelier", "Pose par l'artisan", "Devis détaillé"],
+  "services": [
+    { "titre": "Cuisines", "texte": "Plans, fabrication et pose d'une cuisine pensée pour votre pièce et vos habitudes.", "icone": "maison" },
+    { "titre": "Escaliers", "texte": "Escaliers droits ou tournants, en bois massif, adaptés à votre intérieur.", "icone": "regle" },
+    { "titre": "Dressings et rangements", "texte": "Chaque centimètre utilisé : sous-pentes, niches, placards sur mesure.", "icone": "marteau" }
+  ],
+  "etapes": [
+    { "titre": "On en parle", "texte": "Vous expliquez votre projet, je viens prendre les mesures." },
+    { "titre": "Devis détaillé", "texte": "Plans, matériaux et prix, noir sur blanc." },
+    { "titre": "Fabrication", "texte": "Tout est fabriqué à l'atelier." },
+    { "titre": "Pose", "texte": "Pose soignée, chantier laissé propre." }
+  ],
+  "realisations": [],
+  "avis": [],
+  "faq": [
+    { "q": "Vous déplacez-vous pour prendre les mesures ?", "r": "Oui, je viens chez vous pour mesurer et voir la pièce avant de faire le devis." },
+    { "q": "Quel bois utilisez-vous ?", "r": "Cela dépend du projet et de votre budget : on en parle ensemble lors de la visite." }
+  ],
+  "entreprise": { "raison_sociale": "", "responsable": "", "adresse": "", "bce": "", "tva": "" },
+  "hebergeur": "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis (vercel.com)",
+  "site": { "url": "", "referencement": false },
+  "credit": { "nom": "NY Visuals", "url": "https://nyvisuals.vercel.app" }
+}
