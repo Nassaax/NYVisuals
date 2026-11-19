@@ -66,3 +66,13 @@ Skills : `motionsites-web-builder` pour design et mouvement ; `logo-design` pour
 - `logo/` : pistes de logo, générateur, fichiers finaux.
 - `kit/` : gabarit réutilisable pour un nouveau client (à venir).
 - `documents/` : modèles (brief, offres A et B, fiche de remise) — brouillons à faire relire (à venir).
+
+## Site du studio (`site/`)
+- **Positionnement** : NY Visuals vend une image complète (logo, identité, site, visuels réseaux), pas seulement des sites. Slogan : **« Des visuels qui marquent. »** (choisi le 19/11/2026). Un seul appel à l'action principal : « Parlons de votre projet ».
+- **Fichiers** : `site/build.mjs` (page HTML et textes), `site/src/styles.css`, `site/src/app.js`, `site/src/img/realisations/` (vraies captures). Le site généré est dans `site/dist/` (enregistré dans le dépôt, servi par Vercel). `vercel.json` est généré par le build.
+- **Commandes** : `npm run build` (logos + site), `npm test` (tests navigateur + captures dans `site/captures/`, non enregistrées).
+- **Réglages** (`config/studio.json`) : slogan, présentation, coordonnées (`contact` : vide = formulaire désactivé avec « bientôt »), réseaux (vides = masqués), bandeau `ouverture`, `entreprise` (BCE, adresse, TVA → mentions légales), `site.url` (active le plan du site et l'adresse canonique), `site.referencement` (false = `noindex` + en-tête `X-Robots-Tag`), `realisations[].afficher`.
+- **Réalisations** : seul Jumeo (projet personnel) est affiché. Pilotia et Lallat sont prêts mais cachés tant que Nasser n'a pas confirmé que ce sont ses projets (ou donné l'accord écrit du client). Démo Lux : cachée tant qu'il n'y a pas l'accord écrit de Lux.
+- **Choix techniques** : polices auto-hébergées (aucun appel à Google), aucun cookie ni traceur, formulaire sans serveur (message prêt dans WhatsApp, e-mail en secours), site installable (manifeste + service worker), mentions légales et confidentialité en fenêtres.
+- **À valider par Nasser** : fourchettes de budget du formulaire, réponse FAQ « si j'arrête l'abonnement » (à aligner avec le contrat), textes légaux (relecture par un juriste).
+- **À faire à l'ouverture (janvier 2027, à confirmer avec son comptable)** : numéro BCE, adresse et TVA dans `entreprise`, coordonnées, `site.referencement: true`, `site.url`, retrait du bandeau, vraie photo dans « À propos », tarifs si Nasser le souhaite.

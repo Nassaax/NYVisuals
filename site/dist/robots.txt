@@ -1,0 +1,3 @@
+# Site en préparation : non référencé (balise noindex sur chaque page).
+User-agent: *
+Allow: /

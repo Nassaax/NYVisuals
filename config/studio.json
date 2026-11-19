@@ -1,15 +1,89 @@
 {
-  "_note": "Seul endroit où le nom du studio est écrit. Après modification : node logo/build.mjs",
+  "_note": "SEUL endroit où sont écrits le nom, le slogan, les couleurs et les coordonnées. Après modification : npm run build (logos + site).",
   "nom": "NY Visuals",
   "sigle": "NYV",
   "monogramme": "NY",
   "mot": "Visuals",
-  "accroche": "Sites web qui font waw, pensés pour vos clients.",
-  "zone": "Liège · Wallonie",
+  "slogan": "Des visuels qui marquent.",
+  "accroche": "Des visuels qui marquent.",
+  "presentation": "Logo, identité visuelle, site web et visuels pour les réseaux : je donne aux entrepreneurs, indépendants et startups une image claire, cohérente et vivante.",
+  "ville": "Liège",
+  "zone": "Liège et toute la Wallonie",
   "couleurs": {
     "papier": "#F5F3EE",
     "nuit": "#0B1324",
     "encre": "#0B1324",
     "accent": "#FF5B2E"
-  }
+  },
+  "contact": {
+    "_note": "WhatsApp au format international sans + ni espaces (ex. 32470123456). Vide = formulaire « bientôt disponible ».",
+    "whatsapp": "",
+    "telephone_affiche": "",
+    "email": ""
+  },
+  "reseaux": {
+    "instagram": "",
+    "facebook": "",
+    "linkedin": ""
+  },
+  "ouverture": {
+    "bandeau": true,
+    "texte": "Ouverture en janvier 2027"
+  },
+  "entreprise": {
+    "_note": "À compléter à l'ouverture (vérifier les mentions obligatoires sur une source officielle belge).",
+    "responsable": "Nasser",
+    "adresse": "",
+    "bce": "",
+    "tva": ""
+  },
+  "site": {
+    "url": "",
+    "referencement": false
+  },
+  "realisations": [
+    {
+      "id": "jumeo",
+      "nom": "Jumeo",
+      "afficher": true,
+      "statut": "Projet personnel",
+      "secteur": "Énergie et rénovation · Wallonie",
+      "besoin": "Présenter une activité d'apporteur d'affaires (PEB, électricité, photovoltaïque, rénovation) et recevoir des demandes de devis claires.",
+      "fait": "Logo aux deux anneaux entrelacés, site animé avec devis en 1 minute, simulateurs, pages par commune et application mobile installable.",
+      "lien": ""
+    },
+    {
+      "id": "pilotia",
+      "nom": "Pilotia",
+      "afficher": false,
+      "_afficher": "En attente : projet personnel ou accord écrit du client ?",
+      "statut": "",
+      "secteur": "Accompagnement d'indépendants et PME",
+      "besoin": "Un site rassurant pour accompagner petites entreprises et futurs indépendants, sans jargon.",
+      "fait": "Site de 25 pages, 6 outils de calcul simples, prise de rendez-vous et version mobile façon application.",
+      "lien": ""
+    },
+    {
+      "id": "lallat",
+      "nom": "Lallat",
+      "afficher": false,
+      "_afficher": "En attente : projet personnel ou accord écrit du client ?",
+      "statut": "",
+      "secteur": "Location de tenues marocaines · Belgique",
+      "besoin": "Une plateforme pour louer caftans et takchitas entre particulières, negafas et créatrices, partout en Belgique.",
+      "fait": "Identité élégante, catalogue, comptes, paiement en ligne et publication d'annonces depuis le téléphone.",
+      "lien": ""
+    },
+    {
+      "id": "lux",
+      "nom": "Lux Energie Solution (démo)",
+      "afficher": false,
+      "_afficher": "Uniquement après l'accord écrit de Lux.",
+      "statut": "Démo",
+      "secteur": "Énergie · Wallonie",
+      "besoin": "Voir à quoi ressemblerait son site avant de se décider.",
+      "fait": "Démo complète à ses couleurs, avec une page Formations.",
+      "lien": ""
+    }
+  ]
 }
