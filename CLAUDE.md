@@ -70,6 +70,9 @@ Skills : `motionsites-web-builder` pour design et mouvement ; `logo-design` pour
 - `documents/` : procédure client, questionnaire de démarrage, modèle de liste de choses à faire ; `node documents/build.mjs` → PDF dans `documents/pdf/`. À venir : offres A et B, fiche de remise (brouillons à faire relire).
 - `clients/<nom>/` : `fiche.md` (brief, choix, retouches) et `todo.md` de chaque client.
 
+## Vidéos
+- `video/lancement/` : **vidéo de lancement** (Remotion, verticale 21 s, sans son : musique à ajouter dans Instagram). Vidéos libres de droits fournies par Nasser (Pexels), découpées par `preparer-clips.mjs`, non enregistrées dans le dépôt. Les vidéos de banque d'images servent d'ambiance, jamais présentées comme des réalisations ; les réalisations montrées sont les vraies captures.
+
 ## Lancer un nouveau client (phrase clé)
 - **« Nouveau client : [nom] »** (ou `/nouveau-client [nom]`) lance la procédure : suivre `.claude/skills/nouveau-client/SKILL.md` et `documents/procedure-client.md`.
 - **« Client [nom] : on continue »** reprend un client existant : relire sa `fiche.md` et sa `todo.md`, résumer où on en est, proposer la suite.
