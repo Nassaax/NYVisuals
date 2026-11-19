@@ -32,5 +32,11 @@ if (clientJson) {
   const photos = path.join(path.dirname(src), 'photos');           // photos rangées à côté de la fiche
   if (fs.existsSync(photos)) copy(photos, path.join(dest, 'photos'));
 }
+// Crédit « Site réalisé par » : toujours le nom actuel du studio (config/studio.json)
+const studio = JSON.parse(fs.readFileSync(path.join(here, '..', 'config/studio.json'), 'utf8'));
+const cj = path.join(dest, 'client.json');
+const c = JSON.parse(fs.readFileSync(cj, 'utf8'));
+c.credit = { nom: studio.nom, url: (studio.site && studio.site.url) || '' };
+fs.writeFileSync(cj, JSON.stringify(c, null, 2) + '\n');
 console.log(`OK : site créé dans ${dest}
 Ensuite : cd ${target} && npm install && npm run build && npm test`);

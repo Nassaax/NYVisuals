@@ -1,4 +1,4 @@
-// Kit NY Visuals — génère le site d'un client à partir de sa fiche client.json.
+// Kit Nayas Visuals — génère le site d'un client à partir de sa fiche client.json.
 // Usage : node build.mjs                      (client.json à côté, site dans ./dist)
 //         node build.mjs --config chemin/client.json --out chemin/dist
 import fs from 'node:fs';
@@ -22,7 +22,7 @@ const ct = cfg.contact || {}, ent = cfg.entreprise || {}, col = cfg.couleurs || 
 const indexable = !!(cfg.site && cfg.site.referencement);
 const siteUrl = ((cfg.site && cfg.site.url) || '').replace(/\/$/, '');
 const cta = { principal: 'Demander un devis', court: 'Devis', ...(cfg.cta || {}) };
-const credit = cfg.credit || { nom: 'NY Visuals', url: '' };
+const credit = cfg.credit || { nom: 'Nayas Visuals', url: '' };
 
 // ---------- Couleurs : contrastes calculés automatiquement ----------
 const P = col.papier || '#F6F4EF', N = col.nuit || '#10161F', A = col.accent || '#FF5B2E';

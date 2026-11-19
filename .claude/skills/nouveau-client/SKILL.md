@@ -1,9 +1,9 @@
 ---
 name: nouveau-client
-description: Lance ou reprend le travail pour un client de NY Visuals (logo, site, visuels). À utiliser dès que Nasser écrit « Nouveau client : [nom] », « Client [nom] : on continue », ou tape /nouveau-client.
+description: Lance ou reprend le travail pour un client de Nayas Visuals (logo, site, visuels). À utiliser dès que Nasser écrit « Nouveau client : [nom] », « Client [nom] : on continue », ou tape /nouveau-client.
 ---
 
-# Nouveau client NY Visuals
+# Nouveau client Nayas Visuals
 
 Nasser n'est pas développeur : tutoiement, français simple, aucune manipulation technique de son côté. Toutes les règles du `CLAUDE.md` s'appliquent (pas de faux, droits des photos, mentions légales, contrats à faire relire).
 
@@ -27,7 +27,7 @@ Pose les questions **une seule fois, regroupées**, avec des choix à cocher et 
 ## 3. Enchaîner les étapes
 
 Suis la procédure de `documents/procedure-client.md` et coche `todo.md` à chaque étape :
-- **Logo** (si besoin) : 2 ou 3 pistes avec animation d'ouverture, captures image par image, puis fichiers finaux et mini-charte (même méthode que `logo/` pour NY Visuals).
+- **Logo** (si besoin) : 2 ou 3 pistes avec animation d'ouverture, captures image par image, puis fichiers finaux et mini-charte (même méthode que `logo/` pour Nayas Visuals).
 - **Démo** (avec le kit, voir `kit/README.md`) :
   1. Remplis `clients/<dossier>/client.json` à partir de `kit/modele/client.json` et de la fiche (rien d'inventé : un champ inconnu reste vide). Range logo et photos du client dans `clients/<dossier>/photos/`.
   2. Demande à Nasser de créer un dépôt GitHub privé vide nommé `<dossier>-site` et de te donner son nom ; ajoute-le à la session et clone-le.

@@ -1,4 +1,4 @@
-/* Kit NY Visuals — interactions des sites clients (sans dépendance). Rien n'est enregistré, aucun traceur. */
+/* Kit Nayas Visuals — interactions des sites clients (sans dépendance). Rien n'est enregistré, aucun traceur. */
 (function () {
   'use strict';
   var d = document, root = d.documentElement;

@@ -1,4 +1,4 @@
-/* NY Visuals — interactions du site (sans dépendance). Rien n'est enregistré, aucun traceur. */
+/* Nayas Visuals — interactions du site (sans dépendance). Rien n'est enregistré, aucun traceur. */
 (function () {
   'use strict';
   var d = document, root = d.documentElement;

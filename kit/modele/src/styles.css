@@ -1,4 +1,4 @@
-/* Kit NY Visuals — feuille de style des sites clients (dérivée du site du studio).
+/* Kit Nayas Visuals — feuille de style des sites clients (dérivée du site du studio).
    Couleurs injectées depuis config/studio.json (variables --paper, --night, --accent dans le <head>). */
 
 @font-face{font-family:"Plus Jakarta Sans";font-weight:700;font-display:swap;src:url(fonts/jakarta-700.woff2) format("woff2")}

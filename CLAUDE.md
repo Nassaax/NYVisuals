@@ -1,4 +1,4 @@
-# Studio de création web de Nasser — instructions pour Claude
+# Nayas Visuals, le studio de création de Nasser — instructions pour Claude
 
 ## Qui, quoi
 - **Nasser**, comptable de métier, lance une activité de **création web pour entrepreneurs, indépendants et startups** : sites vitrines, landing pages, « présence web » complète (site + fiche Google + visuels réseaux sociaux), logo et identité visuelle.
@@ -11,13 +11,14 @@
 - Avant chaque enregistrement sur GitHub : dire **en une phrase** ce qui change.
 
 ## Nom du studio
-- Nom provisoire : **NY Visuals (NYV)**. Il peut changer : le nom est écrit **à un seul endroit**, `config/studio.json`. Tout le reste (logo, kit, documents) le lit de là. Après un changement : `node logo/build.mjs` régénère les logos.
-- **Ne rien acheter, ne créer aucun compte** (domaine, réseaux sociaux) tant que Nasser n'a pas confirmé le nom définitif.
-- Pistes gardées (vérifiées le 19/11/2026, .be non vérifié) : NY Agence (`nyagence.com` libre), NY Fabrique (`nyfabrique.com` libre), NY Atelier (`nyatelier.studio` libre), NY Motion (`nymotion.studio` libre). `nyvisuals.com` pris ; `nyvisuals.studio` et `nyvisuals.design` libres.
-- Le jour du choix : tableau comparatif (facile à dire en français, pas de confusion avec New York, .be libre sur DNS Belgium, pseudos Instagram/Facebook/LinkedIn libres, aucune marque proche chez BOIP ni dans la BCE) + ma recommandation.
+- **Nom définitif : Nayas Visuals** (confirmé par Nasser le 19/11/2026). « Nayas » = **Na**sser + **Yas**ini : personnel, jeune, servira aussi pour la photo de sport et au quotidien. Instagram : **@nayas.visuals** (contact principal du site).
+- Le nom est écrit **à un seul endroit**, `config/studio.json` (`nom`, `mot` = mot du logo, `sigle` NV). Tout le reste (logo, charte, site, kit, documents) le lit de là : `npm run build` régénère tout.
+- Adresses libres le 19/11/2026 (non achetées) : `nayasvisuals.be`, `nayasvisuals.com`, `nayas.be`, `nayas.studio`. À acheter à l'ouverture de l'activité, avec l'accord de Nasser.
+- Vérification de marque : rien trouvé sur le web le 19/11/2026 ; registres BOIP (marques Benelux) et BCE non accessibles depuis la session, à vérifier par Nasser ou son comptable.
+- Historique : nom provisoire NY Visuals abandonné (pseudo @nyvisuals pris sur Instagram). Pistes écartées : Nasr, Yasini, nayas.prod.
 
 ## Logo du studio
-- Monogramme **« NY »** qui **se construit en animation** à l'ouverture du site (le N et le Y se tracent et se croisent, comme les anneaux de Jumeo), suivi du mot (« Visuals »). Le symbole NY doit survivre à un changement de nom : seul le mot change.
+- Monogramme **« NY »** (les initiales de Nasser, et le N et le Y de « NaYas ») qui **se construit en animation** à l'ouverture du site (le N et le Y se tracent et se croisent, comme les anneaux de Jumeo), suivi du nom « Nayas Visuals ». Le symbole NY doit survivre à un changement de nom : seul le mot change.
 - **Choix validé le 19/11/2026 : piste B « Entrelacs »** (N bleu nuit, Y orange signal #FF5B2E qui passe par-dessus la jambe du N), accent orange signal. Fichiers dans `logo/final/`, mini-charte dans `logo/charte/` (HTML + PDF). Tout se régénère avec `node logo/build.mjs`.
 - Toujours **2 ou 3 pistes** comparées avant le choix.
 - Pour la piste choisie : version claire, version foncée, icône carrée (favicon, photo de profil), SVG + PNG transparents, mini-charte (couleurs, polices, règles d'usage).
@@ -74,8 +75,9 @@ Skills : `motionsites-web-builder` pour design et mouvement ; `logo-design` pour
 - Nasser peut donner les infos en vrac (texte, réponses du client, fichiers) : je range, je repère ce qui manque et je pose les questions une seule fois.
 
 ## Site du studio (`site/`)
+- **Adresse provisoire** : https://nayasvisuals.vercel.app (l'ancienne nyvisuals.vercel.app marche aussi). Projet Vercel `nyvisuals`, mis à jour automatiquement à chaque enregistrement sur GitHub (branche `main`).
 - **Contact** : les prospects écrivent sur la **messagerie Instagram** de Nasser (`contact.instagram`, pseudo sans @) : le formulaire copie le message puis ouvre la conversation (ig.me). WhatsApp et e-mail restent possibles en secours. Le site dit « **Basé à Liège** », sans insister sur la ville ailleurs.
-- **Positionnement** : NY Visuals vend une image complète (logo, identité, site, visuels réseaux), pas seulement des sites. Slogan : **« Des visuels qui marquent. »** (choisi le 19/11/2026). Un seul appel à l'action principal : « Parlons de votre projet ».
+- **Positionnement** : Nayas Visuals vend une image complète (logo, identité, site, visuels réseaux), pas seulement des sites. Slogan : **« Des visuels qui marquent. »** (choisi le 19/11/2026). Un seul appel à l'action principal : « Parlons de votre projet ».
 - **Fichiers** : `site/build.mjs` (page HTML et textes), `site/src/styles.css`, `site/src/app.js`, `site/src/img/realisations/` (vraies captures). Le site généré est dans `site/dist/` (enregistré dans le dépôt, servi par Vercel). `vercel.json` est généré par le build.
 - **Commandes** : `npm run build` (logos + site), `npm test` (tests navigateur + captures dans `site/captures/`, non enregistrées).
 - **Réglages** (`config/studio.json`) : slogan, présentation, coordonnées (`contact` : vide = formulaire désactivé avec « bientôt »), réseaux (vides = masqués), bandeau `ouverture`, `entreprise` (BCE, adresse, TVA → mentions légales), `site.url` (active le plan du site et l'adresse canonique), `site.referencement` (false = `noindex` + en-tête `X-Robots-Tag`), `realisations[].afficher`.

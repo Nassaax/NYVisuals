@@ -39,5 +39,5 @@
   "hebergeur": "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis (vercel.com)",
   "_site": "url : adresse du site (plan du site, image de partage). referencement : false tant que le client n'a pas validé (noindex).",
   "site": { "url": "", "referencement": false },
-  "credit": { "nom": "NY Visuals", "url": "https://nyvisuals.vercel.app" }
+  "credit": { "nom": "Nayas Visuals", "url": "https://nayasvisuals.vercel.app" }
 }

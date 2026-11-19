@@ -1,4 +1,4 @@
-/* NY Visuals — feuille de style du site vitrine.
+/* Nayas Visuals — feuille de style du site vitrine.
    Couleurs injectées depuis config/studio.json (variables --paper, --night, --accent dans le <head>). */
 
 @font-face{font-family:"Plus Jakarta Sans";font-weight:700;font-display:swap;src:url(fonts/jakarta-700.woff2) format("woff2")}
@@ -132,7 +132,7 @@ dialog[open]{animation:pop .45s var(--ease)}
 .splash-on .splash{position:fixed;inset:0;z-index:90;display:grid;place-items:center;background:var(--night);color:var(--paper);cursor:pointer;transition:opacity .6s var(--ease),transform .6s var(--ease)}
 .splash-on{overflow:hidden}
 .splash.out{opacity:0;transform:scale(1.04);pointer-events:none}
-.sp-inner{--S:clamp(84px,21vw,128px);display:grid;justify-items:center;gap:22px;color:var(--paper)}
+.sp-inner{--S:min(clamp(84px,21vw,128px),calc((100vw - 48px) / 4.9));display:grid;justify-items:center;gap:22px;color:var(--paper)}
 .sp-row{display:flex;align-items:center}
 .sp-sym{width:var(--S);height:auto;overflow:visible}
 .sp-word{width:0;overflow:hidden;animation:spword .8s var(--ease) 1.55s forwards}

@@ -1,9 +1,9 @@
 {
   "_note": "SEUL endroit où sont écrits le nom, le slogan, les couleurs et les coordonnées. Après modification : npm run build (logos + site).",
-  "nom": "NY Visuals",
-  "sigle": "NYV",
+  "nom": "Nayas Visuals",
+  "sigle": "NV",
   "monogramme": "NY",
-  "mot": "Visuals",
+  "mot": "Nayas Visuals",
   "slogan": "Des visuels qui marquent.",
   "accroche": "Des visuels qui marquent.",
   "presentation": "Logo, identité visuelle, site web et visuels pour les réseaux : je donne aux entrepreneurs, indépendants et startups une image claire, cohérente et vivante.",
@@ -16,8 +16,8 @@
     "accent": "#FF5B2E"
   },
   "contact": {
-    "_note": "Canal principal : Instagram (pseudo sans @, ex. nyvisuals). Puis WhatsApp (format 32470123456) et e-mail en secours. Tout vide = formulaire « bientôt ».",
-    "instagram": "",
+    "_note": "Canal principal : Instagram (pseudo sans @, ex. nayas.visuals). Puis WhatsApp (format 32470123456) et e-mail en secours. Tout vide = formulaire « bientôt ».",
+    "instagram": "nayas.visuals",
     "whatsapp": "",
     "telephone_affiche": "",
     "email": ""
@@ -39,7 +39,7 @@
     "tva": ""
   },
   "site": {
-    "url": "https://nyvisuals.vercel.app",
+    "url": "https://nayasvisuals.vercel.app",
     "referencement": false
   },
   "realisations": [

@@ -1,4 +1,4 @@
-# Kit de départ NY Visuals
+# Kit de départ Nayas Visuals
 
 Gabarit de site client : une seule fiche de réglages (`client.json`) génère un site complet aux couleurs du client.
 

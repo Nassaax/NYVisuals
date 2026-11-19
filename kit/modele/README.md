@@ -1,4 +1,4 @@
-# Site client (kit NY Visuals)
+# Site client (kit Nayas Visuals)
 
 Tout le site se règle dans **`client.json`**. Le site généré est dans `dist/`, mis en ligne par Vercel (réglages dans `vercel.json`, créé automatiquement).
 

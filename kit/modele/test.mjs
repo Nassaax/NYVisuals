@@ -1,4 +1,4 @@
-// Kit NY Visuals — tests du site client dans un vrai navigateur + captures.
+// Kit Nayas Visuals — tests du site client dans un vrai navigateur + captures.
 // Usage : node test.mjs [--dist dossier/dist] [--out dossier/captures]
 import fs from 'node:fs';
 import http from 'node:http';

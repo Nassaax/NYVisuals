@@ -142,7 +142,7 @@ for (const [name, vp, scale] of [['ordinateur', { width: 1440, height: 900 }, 1]
   const page = await newPage({ viewport: { width: 390, height: 844 } });
   await page.goto(base + '#contact');
   const cfg = await page.evaluate(() => JSON.parse(document.getElementById('cfg').textContent));
-  if (!cfg.whatsapp && !cfg.email) ok('Formulaire sans coordonnées : désactivé avec un message clair', await page.locator('#contact-form button[type=submit]').isDisabled());
+  if (!cfg.whatsapp && !cfg.email && !cfg.instagram) ok('Formulaire sans coordonnées : désactivé avec un message clair', await page.locator('#contact-form button[type=submit]').isDisabled());
   await page.context().close();
   // b) avec un numéro de test : message prêt dans WhatsApp
   const p2 = await newPage({ viewport: { width: 390, height: 844 }, permissions: ['clipboard-read', 'clipboard-write'] });
