@@ -145,8 +145,8 @@ for (const [name, vp, scale] of [['ordinateur', { width: 1440, height: 900 }, 1]
   if (!cfg.whatsapp && !cfg.email) ok('Formulaire sans coordonnées : désactivé avec un message clair', await page.locator('#contact-form button[type=submit]').isDisabled());
   await page.context().close();
   // b) avec un numéro de test : message prêt dans WhatsApp
-  const p2 = await newPage({ viewport: { width: 390, height: 844 } });
-  await p2.addInitScript(() => { window.__cfgOverride = { whatsapp: '32400000000', email: 'test@example.com' }; window.open = (u) => { window.__opened = u; return {}; }; });
+  const p2 = await newPage({ viewport: { width: 390, height: 844 }, permissions: ['clipboard-read', 'clipboard-write'] });
+  await p2.addInitScript(() => { window.__cfgOverride = { instagram: 'studio.test', whatsapp: '', email: 'test@example.com' }; window.open = (u) => { window.__opened = u; return {}; }; });
   await p2.goto(base + '#contact');
   await p2.evaluate(() => document.querySelectorAll('[data-reveal]').forEach((e) => e.classList.add('in')));
   // ici on teste la logique du formulaire, pas les animations : défilement instantané
@@ -164,11 +164,12 @@ for (const [name, vp, scale] of [['ordinateur', { width: 1440, height: 900 }, 1]
   await p2.check('input[name=consent]');
   await p2.click('#contact-form button[type=submit]');
   const url = await p2.evaluate(() => window.__opened || '');
-  const text = decodeURIComponent((url.split('text=')[1] || ''));
-  ok('Formulaire : message prêt dans WhatsApp', url.startsWith('https://wa.me/32400000000?text=') && text.includes('Camille') && text.includes('Site vitrine') && text.includes('0470 12 34 56'), text.replace(/\n/g, ' / '));
+  await p2.waitForTimeout(300);
+  const text = await p2.evaluate(() => navigator.clipboard.readText()).catch(() => '');
+  ok('Formulaire : message copié et messagerie Instagram ouverte', url === 'https://ig.me/m/studio.test' && text.includes('Camille') && text.includes('Site vitrine') && text.includes('0470 12 34 56'), text.replace(/\n/g, ' / '));
   await p2.locator('#contact-form').screenshot({ path: path.join(p2 === null ? out : out, 'formulaire-envoye.png') });
   await p2.click('.alt-link');
-  ok('Formulaire : e-mail en secours', (await p2.evaluate(() => window.__lastContactUrl)).startsWith('mailto:test@example.com'));
+  ok('Formulaire : e-mail en secours (« ' + (await p2.textContent('.alt-link')) + ' »)', (await p2.evaluate(() => window.__lastContactUrl)).startsWith('mailto:test@example.com'));
   await p2.context().close();
 }
 

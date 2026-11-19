@@ -149,6 +149,7 @@ const workCard = (w, i) => `
     </div>
   </article>`;
 
+if (cfg.contact && cfg.contact.instagram && !(cfg.reseaux || {}).instagram) cfg.reseaux = { ...(cfg.reseaux || {}), instagram: 'https://www.instagram.com/' + cfg.contact.instagram.replace(/^@/, '') + '/' };
 const socials = Object.entries(cfg.reseaux || {}).filter(([, v]) => v);
 const ct = cfg.contact || {};
 const ent = cfg.entreprise || {};
@@ -173,9 +174,9 @@ const privacy = `
   <h3>Aucun cookie, aucun suivi</h3>
   <p>Ce site n'utilise ni cookie, ni outil de mesure d'audience, ni publicité. Les polices sont hébergées sur le site lui-même : votre navigateur ne contacte aucun service tiers pour les afficher.</p>
   <h3>Le formulaire de contact</h3>
-  <p>Le formulaire n'enregistre et n'envoie rien. Il prépare un message que vous envoyez vous-même, depuis WhatsApp ou votre messagerie. Les informations que vous choisissez de nous envoyer (prénom, téléphone ou e-mail, type de projet, budget facultatif, message) servent uniquement à répondre à votre demande et, si vous le souhaitez, à établir un devis.</p>
+  <p>Le formulaire n'enregistre et n'envoie rien. Il prépare un message que vous envoyez vous-même, depuis Instagram, WhatsApp ou votre messagerie. Les informations que vous choisissez de nous envoyer (prénom, téléphone ou e-mail, type de projet, budget facultatif, message) servent uniquement à répondre à votre demande et, si vous le souhaitez, à établir un devis.</p>
   <ul><li>Base : votre consentement et les démarches avant un éventuel contrat.</li><li>Durée : le temps de traiter votre demande et de suivre le projet ; elles sont supprimées si aucune collaboration ne suit.</li><li>Vos données ne sont jamais vendues ni cédées.</li></ul>
-  <p>Si vous utilisez WhatsApp, l'envoi passe par ce service et ses propres conditions d'utilisation.</p>
+  <p>Si vous utilisez Instagram ou WhatsApp, l'envoi passe par ces services et leurs propres conditions d'utilisation. Pour Instagram, le message est simplement copié dans votre téléphone ou votre ordinateur, puis collé par vous dans la conversation.</p>
   <h3>Hébergeur</h3>
   <p>L'hébergeur (Vercel) peut conserver des journaux techniques (adresse IP, date et page demandée) pour la sécurité et le bon fonctionnement du site.</p>
   <h3>Vos droits</h3>
@@ -183,8 +184,8 @@ const privacy = `
   <p>Dernière mise à jour : ${new Date().toLocaleDateString('fr-BE', { day: 'numeric', month: 'long', year: 'numeric' })}.</p>`;
 
 // ---------- Page ----------
-const title = `${cfg.nom} · Création de logo, site web et visuels à ${cfg.ville}`;
-const description = `Studio de création visuelle à ${cfg.ville} : logo, identité visuelle, site web et visuels pour les réseaux sociaux, pour entrepreneurs, indépendants et startups en Wallonie.`;
+const title = `${cfg.nom} · Logo, site web et visuels · ${cfg.zone}`;
+const description = `Studio de création visuelle basé à ${cfg.ville} : logo, identité visuelle, site web et visuels pour les réseaux sociaux, pour entrepreneurs, indépendants et startups.`;
 const jsonld = {
   '@context': 'https://schema.org', '@type': 'ProfessionalService', name: cfg.nom, slogan: cfg.slogan, description,
   areaServed: [cfg.ville, 'Wallonie'], address: { '@type': 'PostalAddress', addressLocality: cfg.ville, addressCountry: 'BE' },
@@ -195,7 +196,7 @@ const jsonld = {
   ...(socials.length ? { sameAs: socials.map(([, v]) => v) } : {}),
 };
 const front = {
-  nom: cfg.nom, whatsapp: ct.whatsapp || '', email: ct.email || '',
+  nom: cfg.nom, instagram: (ct.instagram || '').replace(/^@/, ''), whatsapp: ct.whatsapp || '', email: ct.email || '',
   bientot: `Le formulaire s'activera très bientôt${cfg.ouverture && cfg.ouverture.bandeau ? ` (${cfg.ouverture.texte.toLowerCase()})` : ''}. Merci de votre patience !`,
 };
 
@@ -252,7 +253,7 @@ ${indexable ? '' : '<meta name="robots" content="noindex, nofollow">\n'}${siteUr
     <div class="hero-grid" aria-hidden="true"></div>
     <div class="wrap">
       <div>
-        ${cfg.ouverture && cfg.ouverture.bandeau ? `<p class="pill enter" style="--d:.05s"><i aria-hidden="true"></i>${esc(cfg.ouverture.texte)} · ${esc(cfg.ville)}</p>` : `<p class="pill enter"><i aria-hidden="true"></i>Studio de création · ${esc(cfg.ville)}</p>`}
+        ${cfg.ouverture && cfg.ouverture.bandeau ? `<p class="pill enter" style="--d:.05s"><i aria-hidden="true"></i>${esc(cfg.ouverture.texte)}</p>` : `<p class="pill enter"><i aria-hidden="true"></i>Studio de création · ${esc(cfg.ville)}</p>`}
         <h1 class="h1" id="h1" data-words style="--d:.12s">${sloganHtml}</h1>
         <p class="lead enter" style="--d:.45s">${esc(cfg.presentation)}</p>
         <div class="hero-ctas enter" style="--d:.6s">${btn('Parlons de votre projet', '#contact')}${ghost('Voir les réalisations', '#realisations')}</div>
@@ -312,7 +313,7 @@ ${indexable ? '' : '<meta name="robots" content="noindex, nofollow">\n'}${siteUr
       <div class="sec-head" data-reveal>
         <p class="kicker">Services</p>
         <h2 class="h2" id="t-services">Tout ce qui fait votre image.</h2>
-        <p class="lead">Création de logo, de site web et de visuels, à ${esc(cfg.ville)} et dans toute la Wallonie. Une seule personne, une seule ligne graphique, du premier croquis à la mise en ligne.</p>
+        <p class="lead">Un studio de création ${esc(cfg.zone.charAt(0).toLowerCase() + cfg.zone.slice(1))} : logo, site web et visuels. Une seule personne, une seule ligne graphique, du premier croquis à la mise en ligne.</p>
       </div>
       <div class="cards">
         ${services.map((s, i) => `<article class="card" data-reveal style="--rd:${(i % 3) * 0.08}s"><span class="num">0${i + 1}</span><div class="ico">${s.ico}</div><h3>${s.t}</h3><p>${s.p}</p><ul>${s.tags.map((t) => `<li>${t}</li>`).join('')}</ul></article>`).join('')}
@@ -369,7 +370,7 @@ ${indexable ? '' : '<meta name="robots" content="noindex, nofollow">\n'}${siteUr
 
   <section class="sec dark" id="apropos" aria-labelledby="t-apropos">
     <div class="wrap about">
-      <figure class="portrait" data-reveal><span class="ring"></span><span class="ring"></span>${symOnly('sym')}<figcaption><span>${esc(cfg.nom)}</span><span>${esc(cfg.ville)}</span></figcaption></figure>
+      <figure class="portrait" data-reveal><span class="ring"></span><span class="ring"></span>${symOnly('sym')}<figcaption><span>${esc(cfg.nom)}</span><span>${esc(cfg.zone)}</span></figcaption></figure>
       <div data-reveal style="--rd:.1s">
         <p class="kicker">À propos</p>
         <h2 class="h2" id="t-apropos">Le design, avec les pieds sur terre.</h2>
@@ -398,7 +399,7 @@ ${indexable ? '' : '<meta name="robots" content="noindex, nofollow">\n'}${siteUr
       <div data-reveal>
         <p class="kicker">Contact</p>
         <h2 class="h2" id="t-contact">Parlons de votre projet.</h2>
-        <p class="lead">Quelques mots suffisent. Le message s'ouvre tout prêt dans WhatsApp${ct.email ? ', ou dans votre messagerie' : ''}, et c'est vous qui l'envoyez.</p>
+        <p class="lead">Quelques mots suffisent. Votre message est préparé pour vous, puis ${ct.instagram ? 'ma messagerie Instagram s\u2019ouvre' : ct.whatsapp ? 'WhatsApp s\u2019ouvre' : 'votre messagerie s\u2019ouvre'} : il ne reste qu'à l'envoyer.</p>
         <ul class="reassure">
           <li>${I.chat}<span>Réponse personnelle, par la personne qui fera votre projet.</span></li>
           <li>${I.shield}<span>Rien n'est enregistré sur ce site.</span></li>
@@ -419,8 +420,8 @@ ${indexable ? '' : '<meta name="robots" content="noindex, nofollow">\n'}${siteUr
         <label class="consent"><input type="checkbox" name="consent" required><span>J'accepte que ces informations servent uniquement à répondre à ma demande. Elles ne sont ni enregistrées sur ce site, ni vendues. <button type="button" data-open="dlg-privacy">Politique de confidentialité</button></span></label>
         <p class="form-msg" role="status" aria-live="polite"></p>
         <div class="form-actions">
-          <button class="btn" type="submit"><span class="btn-label"><span data-t="Écrire sur WhatsApp">Écrire sur WhatsApp</span></span><span class="btn-arrow">${I.arrow}${I.arrow}</span></button>
-          <button class="alt-link" type="button" hidden>ou envoyer par e-mail</button>
+          <button class="btn" type="submit"><span class="btn-label"><span data-t="Envoyer mon message">Envoyer mon message</span></span><span class="btn-arrow">${I.arrow}${I.arrow}</span></button>
+          <button class="alt-link" type="button" hidden></button>
         </div>
       </form>
     </div>
@@ -531,7 +532,7 @@ body{margin:0;width:1200px;height:630px;background:var(--night);color:var(--pape
 .og p{font:800 64px/1 var(--display);letter-spacing:-.045em}
 .og small{font:500 24px/1 var(--text);color:var(--muted-d)}
 .bg{position:absolute;inset:0;background-image:linear-gradient(var(--line-d) 1px,transparent 1px),linear-gradient(90deg,var(--line-d) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 60% 70% at 50% 50%,#000,transparent 75%);opacity:.7}
-</style></head><body><div class="bg"></div><div class="og">${lockup()}<p>${sloganHtml}</p><small>Logo · Site web · Visuels — ${esc(cfg.ville)}</small></div></body></html>`;
+</style></head><body><div class="bg"></div><div class="og">${lockup()}<p>${sloganHtml}</p><small>Logo · Site web · Visuels · ${esc(cfg.zone)}</small></div></body></html>`;
 const { chromium } = createRequire(import.meta.url)('playwright');
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1200, height: 630 } });

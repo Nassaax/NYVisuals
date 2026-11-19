@@ -161,13 +161,19 @@
   var form = $('#contact-form');
   if (form) {
     var msg = $('.form-msg', form), btn = $('button[type="submit"]', form), alt = $('.alt-link', form);
-    var hasWa = !!CFG.whatsapp, hasMail = !!CFG.email;
-    if (!hasWa && !hasMail) {
+    var LABELS = { ig: 'Envoyer sur Instagram', wa: 'Envoyer sur WhatsApp', mail: 'Envoyer par e-mail' };
+    var ALT = { wa: 'ou par WhatsApp', mail: 'ou par e-mail' };
+    var channels = [];
+    if (CFG.instagram) channels.push('ig');
+    if (CFG.whatsapp) channels.push('wa');
+    if (CFG.email) channels.push('mail');
+    var lb = $('.btn-label > span', btn);
+    if (!channels.length) {
       btn.disabled = true;
       show('info', CFG.bientot || 'Le formulaire sera actif très bientôt.');
     } else {
-      if (!hasWa) { var lb = $('.btn-label > span', btn); lb.textContent = 'Envoyer par e-mail'; lb.setAttribute('data-t', 'Envoyer par e-mail'); }
-      if (hasWa && hasMail && alt) alt.hidden = false;
+      lb.textContent = LABELS[channels[0]]; lb.setAttribute('data-t', LABELS[channels[0]]);
+      if (channels[1] && alt) { alt.textContent = ALT[channels[1]]; alt.hidden = false; }
     }
     $$('[data-formule]').forEach(function (a) {
       a.addEventListener('click', function () { form.elements.formule.value = a.getAttribute('data-formule'); });
@@ -203,18 +209,30 @@
       if (!form.elements.consent.checked) bad('consent', 'Cochez la case pour accepter l’utilisation de vos informations.');
       return ok;
     }
+    function copy(text) {
+      try { if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(text).catch(fallback); return; } } catch (e) {}
+      fallback();
+      function fallback() {
+        var t = d.createElement('textarea'); t.value = text; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
+        d.body.appendChild(t); t.select(); try { d.execCommand('copy'); } catch (e) {} t.remove();
+      }
+    }
     function go(channel) {
       if (!check()) return;
       var text = build(), url;
-      if (channel === 'wa') url = 'https://wa.me/' + CFG.whatsapp.replace(/\D/g, '') + '?text=' + encodeURIComponent(text);
+      if (channel === 'ig') url = 'https://ig.me/m/' + encodeURIComponent(CFG.instagram);
+      else if (channel === 'wa') url = 'https://wa.me/' + CFG.whatsapp.replace(/\D/g, '') + '?text=' + encodeURIComponent(text);
       else url = 'mailto:' + CFG.email + '?subject=' + encodeURIComponent('Projet : demande depuis le site') + '&body=' + encodeURIComponent(text);
       window.__lastContactUrl = url;   // utilisé par les tests automatiques
-      show('ok', channel === 'wa' ? 'Votre message est prêt dans WhatsApp : il ne reste qu’à appuyer sur Envoyer.' : 'Votre message est prêt dans votre messagerie : il ne reste qu’à l’envoyer.');
-      if (channel === 'wa') { var w = window.open(url, '_blank', 'noopener'); if (!w) window.location.href = url; }
-      else window.location.href = url;
+      if (channel === 'ig') {
+        copy(text);
+        show('ok', 'Votre message est copié. Ma messagerie Instagram s’ouvre : appuyez longuement dans la zone de texte, choisissez « Coller », puis envoyez.');
+      } else show('ok', channel === 'wa' ? 'Votre message est prêt dans WhatsApp : il ne reste qu’à appuyer sur Envoyer.' : 'Votre message est prêt dans votre messagerie : il ne reste qu’à l’envoyer.');
+      if (channel === 'mail') { window.location.href = url; return; }
+      var w = window.open(url, '_blank', 'noopener'); if (!w) window.location.href = url;
     }
-    form.addEventListener('submit', function (e) { e.preventDefault(); if (btn.disabled) return; go(hasWa ? 'wa' : 'mail'); });
-    if (alt) alt.addEventListener('click', function () { go('mail'); });
+    form.addEventListener('submit', function (e) { e.preventDefault(); if (btn.disabled) return; go(channels[0]); });
+    if (alt) alt.addEventListener('click', function () { if (channels[1]) go(channels[1]); });
   }
 
   /* ---------- site installable (PWA) ---------- */

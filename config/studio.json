@@ -8,7 +8,7 @@
   "accroche": "Des visuels qui marquent.",
   "presentation": "Logo, identité visuelle, site web et visuels pour les réseaux : je donne aux entrepreneurs, indépendants et startups une image claire, cohérente et vivante.",
   "ville": "Liège",
-  "zone": "Liège et toute la Wallonie",
+  "zone": "Basé à Liège",
   "couleurs": {
     "papier": "#F5F3EE",
     "nuit": "#0B1324",
@@ -16,7 +16,8 @@
     "accent": "#FF5B2E"
   },
   "contact": {
-    "_note": "WhatsApp au format international sans + ni espaces (ex. 32470123456). Vide = formulaire « bientôt disponible ».",
+    "_note": "Canal principal : Instagram (pseudo sans @, ex. nyvisuals). Puis WhatsApp (format 32470123456) et e-mail en secours. Tout vide = formulaire « bientôt ».",
+    "instagram": "",
     "whatsapp": "",
     "telephone_affiche": "",
     "email": ""
