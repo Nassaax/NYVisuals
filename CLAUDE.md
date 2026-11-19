@@ -3,7 +3,7 @@
 ## Qui, quoi
 - **Nasser**, comptable de métier, lance une activité de **création web pour entrepreneurs, indépendants et startups** : sites vitrines, landing pages, « présence web » complète (site + fiche Google + visuels réseaux sociaux), logo et identité visuelle.
 - Zone : Liège et la Wallonie, puis toute la Belgique francophone.
-- Références réalisées (style à reproduire) : **Jumeo** (apporteur d'affaires énergie et rénovation), **démo Lux Energie Solution** (site Jumeo décliné aux couleurs d'un client, avec page Formations), **Pilotia** et **Lallat** (description à compléter par Nasser).
+- Références réalisées (style à reproduire) : **Jumeo** (apporteur d'affaires énergie et rénovation), **démo Lux Energie Solution** (site Jumeo décliné aux couleurs d'un client, avec page Formations), **Pilotia** (accompagnement d'indépendants et PME, site de plus de 40 pages avec outils de calcul) et **Lallat** (plateforme belge de location de tenues marocaines, lallat.be).
 
 ## Comment me parler
 - Tutoiement, français simple, **sans jargon**. Nasser **ne touche jamais au code** : je fais toutes les manipulations.
@@ -72,7 +72,7 @@ Skills : `motionsites-web-builder` pour design et mouvement ; `logo-design` pour
 - **Fichiers** : `site/build.mjs` (page HTML et textes), `site/src/styles.css`, `site/src/app.js`, `site/src/img/realisations/` (vraies captures). Le site généré est dans `site/dist/` (enregistré dans le dépôt, servi par Vercel). `vercel.json` est généré par le build.
 - **Commandes** : `npm run build` (logos + site), `npm test` (tests navigateur + captures dans `site/captures/`, non enregistrées).
 - **Réglages** (`config/studio.json`) : slogan, présentation, coordonnées (`contact` : vide = formulaire désactivé avec « bientôt »), réseaux (vides = masqués), bandeau `ouverture`, `entreprise` (BCE, adresse, TVA → mentions légales), `site.url` (active le plan du site et l'adresse canonique), `site.referencement` (false = `noindex` + en-tête `X-Robots-Tag`), `realisations[].afficher`.
-- **Réalisations** : seul Jumeo (projet personnel) est affiché. Pilotia et Lallat sont prêts mais cachés tant que Nasser n'a pas confirmé que ce sont ses projets (ou donné l'accord écrit du client). Démo Lux : cachée tant qu'il n'y a pas l'accord écrit de Lux.
+- **Réalisations** : Jumeo (projet personnel, sans lien car jumeo.vercel.app est protégé par Vercel), Pilotia et Lallat (créations confirmées par Nasser le 19/11/2026, liens : version « accueil épuré » de Pilotia sur Vercel et https://lallat.be). Démo Lux : cachée tant qu'il n'y a pas l'accord écrit de Lux. Pour refaire les captures : `site/outils/captures-realisations.cjs`.
 - **Choix techniques** : polices auto-hébergées (aucun appel à Google), aucun cookie ni traceur, formulaire sans serveur (message prêt dans WhatsApp, e-mail en secours), site installable (manifeste + service worker), mentions légales et confidentialité en fenêtres.
 - **À valider par Nasser** : fourchettes de budget du formulaire, réponse FAQ « si j'arrête l'abonnement » (à aligner avec le contrat), textes légaux (relecture par un juriste).
 - **À faire à l'ouverture (janvier 2027, à confirmer avec son comptable)** : numéro BCE, adresse et TVA dans `entreprise`, coordonnées, `site.referencement: true`, `site.url`, retrait du bandeau, vraie photo dans « À propos », tarifs si Nasser le souhaite.
