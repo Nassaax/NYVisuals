@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node logo/build.mjs && node site/build.mjs",
-    "logo": "node logo/build.mjs",
+    "build": "node logo/build.mjs && node logo/profil.mjs && node site/build.mjs",
+    "logo": "node logo/build.mjs && node logo/profil.mjs",
     "site": "node site/build.mjs",
     "test": "node site/test.mjs",
     "documents": "node documents/build.mjs",

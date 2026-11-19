@@ -22,6 +22,7 @@
 - **Choix validé le 19/11/2026 : piste B « Entrelacs »** (N bleu nuit, Y orange signal #FF5B2E qui passe par-dessus la jambe du N), accent orange signal. Fichiers dans `logo/final/`, mini-charte dans `logo/charte/` (HTML + PDF). Tout se régénère avec `node logo/build.mjs`.
 - Toujours **2 ou 3 pistes** comparées avant le choix.
 - Pour la piste choisie : version claire, version foncée, icône carrée (favicon, photo de profil), SVG + PNG transparents, mini-charte (couleurs, polices, règles d'usage).
+- **Photos de profil rondes** (Instagram) : `logo/profil.mjs` → `logo/final/profil/` (A anneau dégradé, B viseur, C éclat) + `apercu-instagram.png`. Couleurs d'appoint autorisées autour du cercle : ambre #FFB23E, rose #FF3D7F.
 
 ## Direction artistique (signature du studio)
 1. **Écran d'ouverture animé**, une fois par visite : le logo du client se construit (formes qui arrivent chacune d'un côté en se dessinant, se rejoignent, petit battement), puis nom + accroche courte. ~2,5–3 s, clic pour passer, retrait auto après 4 s. **Jamais** si `prefers-reduced-motion`, **jamais** sans JavaScript. Le contenu entre en scène juste après. Logo et nom en **SVG vectoriel** (net avant le chargement des polices), animations en **CSS pur**.
