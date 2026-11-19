@@ -18,6 +18,7 @@
 
 ## Logo du studio
 - Monogramme **« NY »** qui **se construit en animation** à l'ouverture du site (le N et le Y se tracent et se croisent, comme les anneaux de Jumeo), suivi du mot (« Visuals »). Le symbole NY doit survivre à un changement de nom : seul le mot change.
+- **Choix validé le 19/11/2026 : piste B « Entrelacs »** (N bleu nuit, Y orange signal #FF5B2E qui passe par-dessus la jambe du N), accent orange signal. Fichiers dans `logo/final/`, mini-charte dans `logo/charte/` (HTML + PDF). Tout se régénère avec `node logo/build.mjs`.
 - Toujours **2 ou 3 pistes** comparées avant le choix.
 - Pour la piste choisie : version claire, version foncée, icône carrée (favicon, photo de profil), SVG + PNG transparents, mini-charte (couleurs, polices, règles d'usage).
 

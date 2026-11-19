@@ -287,3 +287,8 @@ if (/planche/.test(location.search)) {
 fs.mkdirSync(path.join(root, 'logo/pistes'), { recursive: true });
 fs.writeFileSync(path.join(root, 'logo/pistes/index.html'), html);
 console.log('OK : logo/pistes/index.html (' + cfg.nom + ')');
+
+// Fichiers finaux de la piste choisie (B · Entrelacs) + mini-charte
+await (await import('./final.mjs')).default({ root, cfg, mot });
+await (await import('./charte.mjs')).default({ root, cfg });
+

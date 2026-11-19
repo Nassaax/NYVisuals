@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="8 14 104 92" role="img" aria-label="NY"><title>NY</title>
+  <defs><mask id="s" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="120">
+    <rect width="120" height="120" fill="#fff"/><path d="M54 22 78 62" stroke="#000" stroke-width="22" fill="none"/>
+  </mask></defs>
+  <g fill="none" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="2" stroke-width="12">
+    <path mask="url(#s)" d="M18 98V22l48 76V40" stroke="#0B1324"/>
+    <path d="M102 22 78 62v36M54 22 78 62" stroke="#FF5B2E"/>
+  </g></svg>
