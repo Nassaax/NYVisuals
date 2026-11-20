@@ -15,7 +15,6 @@ const font = (f) => b64('node_modules/' + f, 'font/woff2');
 const shot = (id) => b64(`site/src/img/realisations/${id}-mobile.jpg`, 'image/jpeg');
 const logo = fs.readFileSync(path.join(root, 'logo/final/symbole-fonce.svg'), 'utf8').replace('<svg', '<svg class="sym"');
 const ig = '@' + cfg.contact.instagram;
-const site = (cfg.site.url || '').replace(/^https?:\/\//, '');
 
 // Petits dessins « à la main » (traits volontairement imparfaits)
 const tick = `<svg viewBox="0 0 40 40" class="tick"><path d="M7 21c3 2 6 6 9 10 4-9 9-17 17-24" fill="none" stroke="${A}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
@@ -67,7 +66,7 @@ const grain = `<svg class="grain" width="100%" height="100%"><filter id="n"><feT
 const head = `<div class="top"><span><i class="dot"></i>${cfg.zone}</span><span class="stamp">Sur devis</span></div>`;
 const title = `Votre logo et <span class="hl">votre site${swash}</span> web, faits sur mesure.`;
 const items = ['Logo et identité visuelle', 'Site rapide, pensé pour le téléphone', 'Visuels pour Instagram et Facebook'];
-const foot = `<div class="foot"><div class="brand">${logo}${cfg.nom}</div><div class="contact"><small>Écrivez-moi sur Instagram</small><span class="ring">${ig}${circle}</span><span class="url">${site}</span></div></div>`;
+const foot = `<div class="foot"><div class="brand">${logo}${cfg.nom}</div><div class="contact"><small>Écrivez-moi sur Instagram</small><span class="ring">${ig}${circle}</span></div></div>`;
 
 const intro = 'Pour indépendants, commerces et petites entreprises. Une seule personne, du logo à la mise en ligne.';
 const list = `<ul>${items.map((t) => `<li>${tick}${t}</li>`).join('')}</ul>`;

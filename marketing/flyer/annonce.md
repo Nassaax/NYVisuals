@@ -23,4 +23,3 @@ Prix sur devis, selon votre projet.
 Basé à Liège. Ouverture officielle en janvier 2027 : vous pouvez déjà m'écrire pour en parler.
 
 Écrivez-moi ici ou sur Instagram : @nayas.visuals
-Site : nayasvisuals.vercel.app
