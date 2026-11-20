@@ -23,3 +23,14 @@ Prix sur devis, selon votre projet.
 Basé à Liège. Ouverture officielle en janvier 2027 : vous pouvez déjà m'écrire pour en parler.
 
 Écrivez-moi ici ou sur Instagram : @nayas.visuals
+
+## Version courte (Marketplace, 2ememain)
+Votre logo et votre site web, faits sur mesure.
+Pour indépendants, commerces et petites entreprises : logo, site pensé pour le téléphone, visuels pour Instagram et Facebook. Une seule personne, du premier échange à la mise en ligne.
+Prix sur devis. Basé à Liège.
+Écrivez-moi ici ou sur Instagram : @nayas.visuals
+
+## Version groupes Facebook (ton plus personnel)
+Bonjour à tous ! Je m'appelle Nasser et je lance Nayas Visuals : je crée des logos, des sites web et des visuels pour les indépendants et petites entreprises.
+Comptable de métier, je connais aussi les contraintes d'un entrepreneur (budget, délais, administratif).
+Vous lancez une activité ou votre image mérite un coup de neuf ? Écrivez-moi en privé ou sur Instagram : @nayas.visuals
