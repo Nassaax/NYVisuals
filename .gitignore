@@ -6,3 +6,4 @@ site/src/img/realisations/lux-*
 kit/exemple/dist/
 kit/exemple/captures/
 kit/exemple/vercel.json
+marketing/flyer/out/*.png

@@ -73,6 +73,9 @@ Skills : `motionsites-web-builder` pour design et mouvement ; `logo-design` pour
 ## Vidéos
 - `video/lancement/` : **vidéo de lancement** (Remotion, verticale 21 s, sans son : musique à ajouter dans Instagram). Vidéos libres de droits fournies par Nasser (Pexels), découpées par `preparer-clips.mjs`, non enregistrées dans le dépôt. Les vidéos de banque d'images servent d'ambiance, jamais présentées comme des réalisations ; les réalisations montrées sont les vraies captures.
 
+## Flyers et annonces
+- `marketing/flyer/` : flyer pour Facebook Marketplace et 2ememain (carré 1080 et portrait 1080 × 1350), style « affiche papier » volontairement peu « IA » : grain papier, vraies captures scotchées, annotations manuscrites (police Caveat), couleurs franches sans dégradé. `node marketing/flyer/build.mjs` → `out/*.jpg`. Texte d'annonce prêt dans `annonce.md`.
+
 ## Lancer un nouveau client (phrase clé)
 - **« Nouveau client : [nom] »** (ou `/nouveau-client [nom]`) lance la procédure : suivre `.claude/skills/nouveau-client/SKILL.md` et `documents/procedure-client.md`.
 - **« Client [nom] : on continue »** reprend un client existant : relire sa `fiche.md` et sa `todo.md`, résumer où on en est, proposer la suite.
