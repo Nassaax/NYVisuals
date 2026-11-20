@@ -1,7 +1,7 @@
 # Texte des annonces (Facebook Marketplace, 2ememain)
 
 Images : `out/flyer-carre.jpg` en premier (vignette carrée), puis `out/flyer-portrait.jpg`.
-Prix : « Sur devis » si la plateforme le permet, sinon « Prix à convenir » (2ememain) ou « 0 € + description » (Marketplace demande un montant : mieux vaut choisir la catégorie « Services » quand elle est proposée).
+Prix : « Prix à convenir » sur 2ememain. Sur Marketplace, si un montant est obligatoire, choisir la catégorie « Services » quand elle est proposée ; éviter d'afficher 0 € (ça ferait croire que c'est gratuit).
 Catégorie : Services / Services aux entreprises / Informatique et web.
 
 ## Titre (court, avec les mots que les gens cherchent)
