@@ -76,6 +76,8 @@ Skills : `motionsites-web-builder` pour design et mouvement ; `logo-design` pour
 ## Flyers et annonces
 - `marketing/flyer/` : flyer pour Facebook Marketplace et 2ememain (carré 1080 et portrait 1080 × 1350), style « affiche papier » volontairement peu « IA » : grain papier, vraies captures scotchées, annotations manuscrites (police Caveat), couleurs franches sans dégradé. `node marketing/flyer/build.mjs` → `out/*.jpg`. Texte d'annonce prêt dans `annonce.md`. **Pas d'adresse de site sur le flyer ni dans l'annonce** tant que le nom de domaine définitif n'est pas acheté (demande de Nasser, 20/11/2026) : contact uniquement par @nayas.visuals.
 
+- `marketing/entraide/` : visuel « Partage de compte » (entraide Instagram), publication 4:5 et story 9:16, aux couleurs du studio. Pas de marques ou d'univers d'autrui (ex. GTA) dans nos visuels. `node marketing/entraide/build.mjs`.
+
 ## Lancer un nouveau client (phrase clé)
 - **« Nouveau client : [nom] »** (ou `/nouveau-client [nom]`) lance la procédure : suivre `.claude/skills/nouveau-client/SKILL.md` et `documents/procedure-client.md`.
 - **« Client [nom] : on continue »** reprend un client existant : relire sa `fiche.md` et sa `todo.md`, résumer où on en est, proposer la suite.
