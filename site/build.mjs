@@ -368,6 +368,20 @@ ${indexable ? '' : '<meta name="robots" content="noindex, nofollow">\n'}${siteUr
     </div>
   </section>
 
+  ${cfg.partenaire && cfg.partenaire.afficher ? `<section class="sec" id="pilotia" aria-labelledby="t-pilotia" style="padding-top:0">
+    <div class="wrap">
+      <div class="duo" data-reveal>
+        <div class="duo-logos"><span class="duo-ny">${lockup()}</span><span class="duo-x" aria-hidden="true">×</span><img src="img/${cfg.partenaire.logo}" alt="${esc(cfg.partenaire.nom)}" width="1668" height="364"></div>
+        <div>
+          <p class="kicker">Ensemble</p>
+          <h2 class="h2" id="t-pilotia">${esc(cfg.nom)} × ${esc(cfg.partenaire.nom)}</h2>
+          <p class="lead">Deux activités, un même fondateur. <strong>${esc(cfg.partenaire.nom)}</strong> accompagne les indépendants et les petites entreprises (${esc(cfg.partenaire.role.replace(/^[^:]*:\s*/, '').replace(/\.$/, ''))}). <strong>${esc(cfg.nom)}</strong> crée leur image : logo, site, visuels. Vous pouvez commencer par l'un ou l'autre, tout reste cohérent.</p>
+          <p style="margin-top:28px">${btn('Découvrir ' + cfg.partenaire.nom, esc(cfg.partenaire.lien), { attrs: 'target="_blank" rel="noopener"' })}</p>
+        </div>
+      </div>
+    </div>
+  </section>` : ''}
+
   <section class="sec dark" id="apropos" aria-labelledby="t-apropos">
     <div class="wrap about">
       <figure class="portrait" data-reveal><span class="ring"></span><span class="ring"></span>${symOnly('sym')}<figcaption><span>${esc(cfg.nom)}</span><span>${esc(cfg.zone)}</span></figcaption></figure>
@@ -478,6 +492,7 @@ const fonts = {
 };
 for (const [to, from] of Object.entries(fonts)) fs.copyFileSync(path.join(root, 'node_modules', from), path.join(dist, 'fonts', to));
 const fin = path.join(root, 'logo/final');
+if (cfg.partenaire && cfg.partenaire.afficher) fs.copyFileSync(path.join(src, 'img', cfg.partenaire.logo), path.join(dist, 'img', cfg.partenaire.logo));
 fs.copyFileSync(path.join(fin, 'favicon.ico'), path.join(dist, 'favicon.ico'));
 fs.copyFileSync(path.join(fin, 'icone-carree.svg'), path.join(dist, 'icone.svg'));
 fs.copyFileSync(path.join(fin, 'png/icone-180.png'), path.join(dist, 'apple-touch-icon.png'));

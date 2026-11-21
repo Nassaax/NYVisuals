@@ -78,6 +78,11 @@ Skills : `motionsites-web-builder` pour design et mouvement ; `logo-design` pour
 
 - `marketing/entraide/` : visuel « Partage de compte » (entraide Instagram), publication 4:5 et story 9:16, aux couleurs du studio. Pas de marques ou d'univers d'autrui (ex. GTA) dans nos visuels. `node marketing/entraide/build.mjs`.
 
+## Nayas Visuals × Pilotia (synergie)
+- **Pilotia est aussi une activité de Nasser** (confirmé le 21/11/2026). On communique « **deux activités, un même fondateur** » / « travaillent main dans la main » ; **jamais** « partenaire » au sens d'une entreprise indépendante (ce serait trompeur).
+- Rôles : **Pilotia accompagne** (diagnostic, organisation, démarches, stratégie de présence en ligne) ; **Nayas Visuals crée** (logo, site, visuels). Couleurs : orange Nayas #FF5B2E + cyan Pilotia #4FD1E8.
+- En place : bloc « Nayas Visuals × Pilotia » sur le site (`partenaire` dans `config/studio.json`), visuels Instagram `marketing/duo-pilotia/` (publication + story), section « Création avec Nayas Visuals » sur la page Présence digitale de Pilotia (dépôt `Nassaax/pilotia`, branche `accueil-epure`).
+
 ## Lancer un nouveau client (phrase clé)
 - **« Nouveau client : [nom] »** (ou `/nouveau-client [nom]`) lance la procédure : suivre `.claude/skills/nouveau-client/SKILL.md` et `documents/procedure-client.md`.
 - **« Client [nom] : on continue »** reprend un client existant : relire sa `fiche.md` et sa `todo.md`, résumer où on en est, proposer la suite.

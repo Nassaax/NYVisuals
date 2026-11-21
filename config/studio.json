@@ -84,5 +84,13 @@
       "fait": "Démo complète à ses couleurs, avec une page Formations.",
       "lien": ""
     }
-  ]
+  ],
+  "partenaire": {
+    "_note": "Pilotia est aussi une activité de Nasser : dire « même fondateur », jamais « partenaire indépendant ».",
+    "afficher": true,
+    "nom": "Pilotia",
+    "role": "Accompagnement d'entreprise : diagnostic, organisation, démarches, présence en ligne.",
+    "lien": "https://pilotia-git-accueil-epure-nassaaxs-projects.vercel.app/index.html",
+    "logo": "pilotia-logo-clair.png"
+  }
 }

@@ -421,3 +421,15 @@ dialog[open]{animation:pop .45s var(--ease)}
   .js .hero-art .d{stroke-dashoffset:0!important;opacity:1!important}
   .track .fg{stroke-dashoffset:0!important}
 }
+
+/* ---------- Nayas Visuals × Pilotia ---------- */
+.duo{display:grid;gap:36px;align-items:center;background:var(--night);color:var(--paper);border-radius:30px;padding:clamp(28px,5vw,56px);--line:var(--line-d)}
+@media (min-width:1000px){.duo{grid-template-columns:.9fr 1.1fr;gap:56px}}
+.duo .lead{color:var(--muted-d)}
+.duo .lead strong{color:var(--paper);font-weight:600}
+.duo .kicker{color:var(--accent)}
+.duo-logos{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+.duo-ny{color:var(--paper);display:block}
+.duo-ny svg{height:44px;width:auto}
+.duo-x{font:800 34px/1 var(--display);color:var(--accent)}
+.duo-logos img{height:40px;width:auto}
