@@ -433,3 +433,5 @@ dialog[open]{animation:pop .45s var(--ease)}
 .duo-ny svg{height:44px;width:auto}
 .duo-x{font:800 34px/1 var(--display);color:var(--accent)}
 .duo-logos img{height:40px;width:auto}
+.duo .duo-link{color:var(--paper);font-weight:600;text-decoration:underline;text-decoration-color:#4FD1E8;text-underline-offset:4px}
+.duo-logos a{display:block}

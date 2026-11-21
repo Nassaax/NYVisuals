@@ -371,11 +371,11 @@ ${indexable ? '' : '<meta name="robots" content="noindex, nofollow">\n'}${siteUr
   ${cfg.partenaire && cfg.partenaire.afficher ? `<section class="sec" id="pilotia" aria-labelledby="t-pilotia" style="padding-top:0">
     <div class="wrap">
       <div class="duo" data-reveal>
-        <div class="duo-logos"><span class="duo-ny">${lockup()}</span><span class="duo-x" aria-hidden="true">×</span><img src="img/${cfg.partenaire.logo}" alt="${esc(cfg.partenaire.nom)}" width="1668" height="364"></div>
+        <div class="duo-logos"><span class="duo-ny">${lockup()}</span><span class="duo-x" aria-hidden="true">×</span><a href="${esc(cfg.partenaire.lien)}" target="_blank" rel="noopener" aria-label="${esc(cfg.partenaire.nom)}"><img src="img/${cfg.partenaire.logo}" alt="${esc(cfg.partenaire.nom)}" width="1668" height="364"></a></div>
         <div>
-          <p class="kicker">Ensemble</p>
+          <p class="kicker">Collaboration</p>
           <h2 class="h2" id="t-pilotia">${esc(cfg.nom)} × ${esc(cfg.partenaire.nom)}</h2>
-          <p class="lead">Deux activités, un même fondateur. <strong>${esc(cfg.partenaire.nom)}</strong> accompagne les indépendants et les petites entreprises (${esc(cfg.partenaire.role.replace(/^[^:]*:\s*/, '').replace(/\.$/, ''))}). <strong>${esc(cfg.nom)}</strong> crée leur image : logo, site, visuels. Vous pouvez commencer par l'un ou l'autre, tout reste cohérent.</p>
+          <p class="lead"><a class="duo-link" href="${esc(cfg.partenaire.lien)}" target="_blank" rel="noopener">${esc(cfg.partenaire.nom)}</a> accompagne les indépendants et les petites entreprises (${esc(cfg.partenaire.role.replace(/^[^:]*:\s*/, '').replace(/\.$/, ''))}). <strong>${esc(cfg.nom)}</strong> crée leur image : logo, site, visuels. Chacun apporte son expertise pour un résultat de qualité, de la stratégie aux visuels.</p>
           <p style="margin-top:28px">${btn('Découvrir ' + cfg.partenaire.nom, esc(cfg.partenaire.lien), { attrs: 'target="_blank" rel="noopener"' })}</p>
         </div>
       </div>

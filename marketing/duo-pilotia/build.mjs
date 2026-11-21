@@ -1,5 +1,5 @@
 // Visuels Instagram « Nayas Visuals × Pilotia » : annonce (publication 4:5) et story (9:16).
-// Pilotia est aussi une activité de Nasser : on dit « un même fondateur », jamais « partenaire indépendant ».
+// Message : chacun apporte son expertise (ne pas écrire « même fondateur », choix de Nasser).
 // Usage : node marketing/duo-pilotia/build.mjs  → marketing/duo-pilotia/out/*.jpg
 import fs from 'node:fs';
 import path from 'node:path';
@@ -50,8 +50,8 @@ const grain = `<svg class="grain" width="100%" height="100%"><filter id="n"><feT
 const body = `
 <div class="page">
   <div class="logos">${nyLogo}<span class="x">×</span><img src="${pilotia}" alt="Pilotia"></div>
-  <h1>Deux activités,<br><em>un même fondateur.</em></h1>
-  <p class="lead">Je lance ${cfg.nom} à côté de Pilotia : l'une vous accompagne, l'autre crée votre image. Un seul interlocuteur, de la stratégie aux visuels.</p>
+  <h1>Deux expertises,<br><em>une seule exigence.</em></h1>
+  <p class="lead">${cfg.nom} et Pilotia collaborent : chacun apporte son expertise pour un résultat de qualité, de la stratégie aux visuels.</p>
   <div class="cols">
     ${col('Pilotia', CYAN, 'Vous accompagne', ['Diagnostic de votre activité', 'Organisation et démarches', 'Stratégie de présence en ligne'])}
     ${col(cfg.nom, A, 'Crée votre image', ['Logo et identité visuelle', 'Site web pensé pour le téléphone', 'Visuels pour vos réseaux'])}
