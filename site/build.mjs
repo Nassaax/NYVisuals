@@ -49,6 +49,9 @@ const I = {
   target: ic('<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M12 12h.01"/>'),
   phone: ic('<rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 17.5h2"/>'),
   question: ic('<circle cx="12" cy="12" r="8.5"/><path d="M9.8 9.5a2.3 2.3 0 0 1 4.4 1c0 1.5-2.2 2-2.2 3.2M12 16.5h.01"/>'),
+  cross: ic('<path d="M7 7l10 10M17 7 7 17"/>', 'stroke-width="2.2"'),
+  checkRound: ic('<path d="m6.5 12.5 3.5 3.5 7.5-8"/>', 'stroke-width="2.4"'),
+  user: ic('<circle cx="12" cy="8.5" r="3.5"/><path d="M5 19.5c1-3.6 3.8-5.5 7-5.5s6 1.9 7 5.5"/>'),
   instagram: ic('<rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="12" cy="12" r="3.6"/><path d="M16.8 7.2h.01"/>'),
   facebook: ic('<path d="M14.5 8H16V4.8h-2.2c-2.4 0-3.6 1.5-3.6 3.8V11H8v3h2.2v6.2h3.2V14h2.3l.5-3h-2.8V9c0-.6.4-1 1.1-1z"/>'),
   linkedin: ic('<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 10.5V16M8 7.8h.01M11.5 16v-3.2c0-1.4.8-2.3 2-2.3s1.8.9 1.8 2.3V16M11.5 10.5V16"/>'),
@@ -336,6 +339,26 @@ ${indexable ? '' : '<meta name="robots" content="noindex, nofollow">\n'}${siteUr
     </div>
   </section>
 
+  <section class="sec" id="pourquoi" aria-labelledby="t-pourquoi">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <p class="kicker">Pourquoi ${esc(cfg.nom)}</p>
+        <h2 class="h2" id="t-pourquoi">Tout au même endroit, et cohérent.</h2>
+      </div>
+      <div class="compare">
+        <div class="cmp cmp-sans" data-reveal>
+          <h3>Sans ligne directrice</h3>
+          <ul>${['Un prestataire pour le logo, un autre pour le site', 'Des visuels différents sur chaque réseau', 'Un site pensé pour l’ordinateur, difficile sur téléphone', 'Les mentions légales oubliées', 'On découvre le résultat à la fin'].map((t) => `<li>${I.cross}<span>${t}</span></li>`).join('')}</ul>
+        </div>
+        <div class="cmp cmp-avec" data-reveal style="--rd:.1s">
+          <span class="cmp-badge">${symOnly()}Avec ${esc(cfg.nom)}</span>
+          <ul>${['Une seule personne pour le logo, le site et les visuels', 'Une même ligne graphique partout', 'Un site pensé d’abord pour le téléphone', 'Mentions légales et confidentialité prévues', 'Une démo à vos couleurs avant de décider'].map((t) => `<li>${I.checkRound}<span>${t}</span></li>`).join('')}</ul>
+          <p style="margin-top:24px">${btn('Parlons de votre projet', '#contact')}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="sec" id="formules" aria-labelledby="t-formules">
     <div class="wrap">
       <div class="sec-head" data-reveal>
@@ -350,6 +373,10 @@ ${indexable ? '' : '<meta name="robots" content="noindex, nofollow">\n'}${siteUr
           <ul>${p.items.map((t) => `<li>${I.check}<span>${t}</span></li>`).join('')}</ul>
           ${btn(p.best ? 'Choisir Création + suivi' : 'Choisir Création', '#contact', { cls: p.best ? '' : 'dark-btn', attrs: `data-formule="${p.id} · ${p.nom}"` })}
         </article>`).join('')}
+      </div>
+      <div class="incl" data-reveal>
+        <h3 class="incl-title">Ce qui est inclus</h3>
+        <div class="incl-grid">${[[I.logo, 'Fichiers du logo', 'SVG et PNG, versions claire et foncée.'], [I.phone, 'Pensé pour le téléphone', 'Testé sur un écran de 390 px.'], [I.spark, 'Écran d’ouverture animé', 'Votre logo qui se construit, une fois par visite.'], [I.chat, 'Contact direct', 'Message prêt dans WhatsApp, e-mail en secours.'], [I.file, 'Mentions légales prévues', 'Et une politique de confidentialité à votre nom.'], [I.shield, 'Sans cookie ni traceur', 'Pas de bandeau cookies à imposer.']].map(([ic, t, d]) => `<div class="incl-card"><span class="incl-ico">${ic}</span><b>${t}</b><span>${d}</span></div>`).join('')}</div>
       </div>
     </div>
   </section>
@@ -371,7 +398,14 @@ ${indexable ? '' : '<meta name="robots" content="noindex, nofollow">\n'}${siteUr
   ${cfg.partenaire && cfg.partenaire.afficher ? `<section class="sec" id="pilotia" aria-labelledby="t-pilotia" style="padding-top:0">
     <div class="wrap">
       <div class="duo" data-reveal>
-        <div class="duo-logos"><span class="duo-ny">${lockup()}</span><span class="duo-x" aria-hidden="true">×</span><a href="${esc(cfg.partenaire.lien)}" target="_blank" rel="noopener" aria-label="${esc(cfg.partenaire.nom)}"><img src="img/${cfg.partenaire.logo}" alt="${esc(cfg.partenaire.nom)}" width="1668" height="364"></a></div>
+        <div class="duo-art"><svg class="rings" viewBox="0 0 600 420" role="img" aria-label="${esc(cfg.partenaire.nom)} accompagne, ${esc(cfg.nom)} crée : stratégie et création">
+          <circle class="r r1" cx="220" cy="210" r="150" pathLength="1" transform="rotate(-90 220 210)"/>
+          <circle class="r r2" cx="380" cy="210" r="150" pathLength="1" transform="rotate(-90 380 210)"/>
+          <g class="late"><path class="arc-gap" d="M258.8 65.1A150 150 0 0 1 334.9 113.6"/><path class="arc" d="M258.8 65.1A150 150 0 0 1 334.9 113.6"/></g>
+          <g class="late txt"><text x="150" y="200" class="rn">${esc(cfg.partenaire.nom)}</text><text x="150" y="234" class="rs">accompagne</text>
+          <text x="450" y="200" class="rn">Nayas</text><text x="450" y="234" class="rs">crée</text></g>
+          <g class="late tag"><rect x="165" y="298" width="270" height="52" rx="26"/><circle cx="194" cy="324" r="7"/><text x="212" y="330">Stratégie + création</text></g>
+        </svg><div class="duo-logos"><span class="duo-ny">${lockup()}</span><span class="duo-x" aria-hidden="true">×</span><a href="${esc(cfg.partenaire.lien)}" target="_blank" rel="noopener" aria-label="${esc(cfg.partenaire.nom)}"><img src="img/${cfg.partenaire.logo}" alt="${esc(cfg.partenaire.nom)}" width="1668" height="364"></a></div></div>
         <div>
           <p class="kicker">Collaboration</p>
           <h2 class="h2" id="t-pilotia">${esc(cfg.nom)} × ${esc(cfg.partenaire.nom)}</h2>
@@ -422,10 +456,12 @@ ${indexable ? '' : '<meta name="robots" content="noindex, nofollow">\n'}${siteUr
       </div>
       <form class="form" id="contact-form" novalidate data-reveal style="--rd:.1s">
         <input type="hidden" name="formule" value="">
+        <p class="grp">${I.user}Vos coordonnées</p>
         <div class="f2">
           <label class="field"><span>Prénom</span><input type="text" name="prenom" autocomplete="given-name" required></label>
           <label class="field"><span>Téléphone ou e-mail</span><input type="text" name="joindre" autocomplete="email" inputmode="email" required></label>
         </div>
+        <p class="grp">${I.spark}Votre projet</p>
         <div class="field"><fieldset><legend>Type de projet <small>(plusieurs choix possibles)</small></legend>
           <div class="tiles">${projectTypes.map(([t, svg]) => `<label class="tile"><input type="checkbox" name="type" value="${t}"><span>${svg}${t}</span></label>`).join('')}</div>
         </fieldset></div>
