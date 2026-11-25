@@ -1,6 +1,7 @@
 // Génère le site vitrine du studio dans site/dist à partir de config/studio.json.
 // Usage : node site/build.mjs   (ou npm run build, qui régénère aussi les logos)
 import fs from 'node:fs';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
@@ -15,6 +16,8 @@ const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').
 const indexable = !!(cfg.site && cfg.site.referencement);
 const siteUrl = (cfg.site && cfg.site.url || '').replace(/\/$/, '');
 const today = new Date().toISOString().slice(0, 10);
+// Version des fichiers style + script : change à chaque modification, pour que les téléphones ne gardent pas l'ancien style en mémoire.
+const assetV = createHash('sha1').update(fs.readFileSync(path.join(src, 'styles.css'))).update(fs.readFileSync(path.join(src, 'app.js'))).digest('hex').slice(0, 8);
 
 fs.rmSync(dist, { recursive: true, force: true });
 fs.mkdirSync(path.join(dist, 'fonts'), { recursive: true });
@@ -268,10 +271,10 @@ ${indexable ? '' : '<meta name="robots" content="noindex, nofollow">\n'}${siteUr
 <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>:root{--paper:${C.papier};--night:${C.nuit};--accent:${C.accent}}</style>
 <script>document.documentElement.classList.replace('no-js','js')</script>
-<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/styles.css?v=${assetV}">
 </head>`;
 const cfgScript = () => `<script type="application/json" id="cfg">${JSON.stringify(front).replace(/</g, '\\u003c')}</script>
-<script src="/app.js" defer></script>`;
+<script src="/app.js?v=${assetV}" defer></script>`;
 const caseHref = (w, b = '') => `${b}realisations/${w.id}/`;
 
 // Haut de page : vraies captures + logo qui se construit
@@ -302,7 +305,7 @@ ${indexable ? '' : '<meta name="robots" content="noindex, nofollow">\n'}${siteUr
 <link rel="preload" href="fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>:root{--paper:${C.papier};--night:${C.nuit};--accent:${C.accent}}</style>
 <script>(function(h){h.classList.remove('no-js');h.classList.add('js');try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&!sessionStorage.getItem('nyv-splash'))h.classList.add('splash-on')}catch(e){}})(document.documentElement)</script>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=${assetV}">
 <script type="application/ld+json">${JSON.stringify(jsonld)}</script>
 </head>
 <body>
@@ -603,7 +606,7 @@ ${tabbarHtml()}
 ${dialogsHtml()}
 
 <script type="application/json" id="cfg">${JSON.stringify(front).replace(/</g, '\\u003c')}</script>
-<script src="app.js" defer></script>
+<script src="app.js?v=${assetV}" defer></script>
 </body>
 </html>
 `;
@@ -773,7 +776,7 @@ fs.writeFileSync(path.join(dist, 'robots.txt'), indexable
   : `# Site en préparation : non référencé (balise noindex sur chaque page).\nUser-agent: *\nAllow: /\n`);
 if (siteUrl) fs.writeFileSync(path.join(dist, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${['/', ...works.map((w) => '/' + caseHref(w)), '/liens/'].map((u) => `  <url><loc>${siteUrl}${u}</loc><lastmod>${today}</lastmod></url>`).join('\n')}\n</urlset>\n`);
 
-fs.writeFileSync(path.join(dist, '404.html'), `<!doctype html><html lang="fr-BE"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>Page introuvable · ${esc(cfg.nom)}</title><link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/styles.css"><style>:root{--paper:${C.papier};--night:${C.nuit};--accent:${C.accent}}body{min-height:100svh;display:grid;place-items:center;text-align:center;padding:24px}</style></head><body class="dark"><main><a href="/" aria-label="${esc(cfg.nom)}" style="display:inline-block;color:var(--paper)">${lockup().replace('<svg', '<svg style="height:40px;width:auto"')}</a><h1 class="h2" style="margin:28px auto 0">Cette page n'existe pas.</h1><p style="margin-top:28px">${btn("Retour à l'accueil", '/')}</p></main></body></html>`);
+fs.writeFileSync(path.join(dist, '404.html'), `<!doctype html><html lang="fr-BE"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>Page introuvable · ${esc(cfg.nom)}</title><link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/styles.css?v=${assetV}"><style>:root{--paper:${C.papier};--night:${C.nuit};--accent:${C.accent}}body{min-height:100svh;display:grid;place-items:center;text-align:center;padding:24px}</style></head><body class="dark"><main><a href="/" aria-label="${esc(cfg.nom)}" style="display:inline-block;color:var(--paper)">${lockup().replace('<svg', '<svg style="height:40px;width:auto"')}</a><h1 class="h2" style="margin:28px auto 0">Cette page n'existe pas.</h1><p style="margin-top:28px">${btn("Retour à l'accueil", '/')}</p></main></body></html>`);
 
 // ---------- Réglages Vercel (référencement selon config) ----------
 fs.writeFileSync(path.join(root, 'vercel.json'), JSON.stringify({

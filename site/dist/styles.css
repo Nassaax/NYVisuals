@@ -508,8 +508,16 @@ dialog[open]{animation:pop .45s var(--ease)}
 .showcase .chip.c3{left:31%;bottom:-1%}
 .js .showcase .sc-browser,.js .showcase .sc-phone{opacity:0;transform:translateY(26px)}
 .showcase.go .sc-browser,.showcase.go .sc-phone{animation:fadeup .9s var(--ease) var(--d,0s) forwards}
-@media (max-width:999px){.hero-art.showcase{order:0;width:100%;max-width:520px;margin:12px auto 8px}}
-@media (max-width:480px){.showcase .chip.c1{bottom:30%}.showcase .sc-mark{border-radius:18px}}
+/* étiquettes pleines : lisibles même posées sur une capture claire */
+.showcase .chip{background:#131D33;border-color:rgba(245,243,238,.18);backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 12px 24px -12px rgba(0,0,0,.6)}
+/* téléphone et tablette : capture en haut, téléphone et logo en dessous, sans cacher le titre de la capture */
+@media (max-width:999px){
+  .hero-art.showcase{order:0;width:100%;max-width:520px;aspect-ratio:auto;height:auto;margin:16px auto 8px;padding-bottom:118%}
+  .showcase .sc-browser{top:0;left:0;right:0;width:100%}
+  .showcase .sc-phone{left:4%;bottom:0;width:34%}
+  .showcase .sc-mark{right:4%;bottom:4%;width:30%;border-radius:20px}
+  .showcase .chip{display:none}
+}
 
 /* ---------- une marque, trois supports ---------- */
 .trio-head{display:grid;gap:16px;margin-bottom:clamp(32px,5vw,56px)}
