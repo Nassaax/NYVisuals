@@ -130,6 +130,7 @@ const faq = [
   ['Faut-il déjà avoir un logo ?', 'Non. Si vous en avez un, je le mets en valeur. Sinon, je vous propose 2 ou 3 pistes de logo avant de commencer le site, pour que tout soit cohérent.'],
   ['Avez-vous besoin de mes photos ?', 'Les vraies photos de votre travail, de votre lieu ou de votre équipe donnent les meilleurs résultats, et je les mets en valeur. Je n\u2019utilise que des images dont vous avez les droits. Sans photos, je travaille avec des illustrations et une mise en page soignée, jamais avec de fausses réalisations.'],
 ];
+const delais = ['Dès que possible', 'Dans 1 à 3 mois', 'Pas pressé, je me renseigne'];
 const projectTypes = [['Logo et identité', I.logo], ['Site vitrine', I.browser], ['Landing page', I.target], ['Visuels réseaux', I.phone], ['Fiche Google', I.pin], ['Je ne sais pas encore', I.question]];
 const budgets = ['Moins de 1 000 €', '1 000 à 2 500 €', '2 500 à 5 000 €', 'Plus de 5 000 €', 'Je ne sais pas encore'];
 
@@ -148,7 +149,7 @@ const workCard = (w, i) => `
       <div class="tagline-row">${w.statut ? `<span class="tag">${esc(w.statut)}</span>` : ''}<span class="tag neutral">${esc(w.secteur)}</span></div>
       <h3>${esc(w.nom)}</h3>
       <dl><div><dt>Le besoin</dt><dd>${esc(w.besoin)}</dd></div><div><dt>Ce qui a été fait</dt><dd>${esc(w.fait)}</dd></div></dl>
-      ${w.lien ? `<p style="margin-top:22px">${btn('Voir le site', esc(w.lien), { cls: 'sm dark-btn', attrs: 'target="_blank" rel="noopener"' })}</p>` : ''}
+      <p class="work-ctas">${btn("Lire l'étude de cas", caseHref(w), { cls: 'sm dark-btn' })}${w.lien ? `<a class="work-ext" href="${esc(w.lien)}" target="_blank" rel="noopener">Voir le site ${I.arrow}</a>` : ''}</p>
     </div>
   </article>`;
 
@@ -203,6 +204,80 @@ const front = {
   bientot: `Le formulaire s'activera très bientôt${cfg.ouverture && cfg.ouverture.bandeau ? ` (${cfg.ouverture.texte.toLowerCase()})` : ''}. Merci de votre patience !`,
 };
 
+// ---------- Parties communes (accueil + pages intérieures) ----------
+// b = '' sur l'accueil (ancres #x), '/' sur les pages intérieures (liens /#x).
+const L = (b, h) => (b ? '/' + h : h);
+const headerHtml = (b = '') => `<header class="top">
+  <div class="wrap">
+    <a class="brand" href="${b ? '/' : '#top'}" aria-label="${esc(cfg.nom)}, ${b ? 'accueil' : 'retour en haut'}">${lockup()}</a>
+    <nav class="nav" aria-label="Navigation principale">
+      ${[['#services', 'Services'], ['#essayer', 'Essayez'], ['#methode', 'Méthode'], ['#formules', 'Formules'], ['#realisations', 'Réalisations'], ['#faq', 'FAQ']].map(([h, l]) => `<a href="${L(b, h)}">${l}</a>`).join('')}
+    </nav>
+    ${btn('Parlons de votre projet', L(b, '#contact'), { cls: 'sm top-cta dark-btn' })}
+  </div>
+</header>`;
+const footerHtml = (b = '') => `<footer class="foot dark">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">${lockup()}<p>${esc(cfg.slogan)}</p></div>
+      <div><h2 class="fh">Le studio</h2><ul><li><a href="${L(b, '#services')}">Services</a></li><li><a href="${L(b, '#methode')}">Méthode</a></li><li><a href="${L(b, '#formules')}">Formules</a></li><li><a href="${L(b, '#realisations')}">Réalisations</a></li><li><a href="${L(b, '#apropos')}">À propos</a></li></ul></div>
+      <div><h2 class="fh">Contact</h2><ul><li><a href="${L(b, '#contact')}">Parlons de votre projet</a></li><li>${esc(cfg.zone)}</li>${cfg.ouverture && cfg.ouverture.bandeau ? `<li>${esc(cfg.ouverture.texte)}</li>` : ''}${ct.email ? `<li><a href="mailto:${esc(ct.email)}">${esc(ct.email)}</a></li>` : ''}</ul>
+        ${socials.length ? `<div class="socials" style="margin-top:16px">${socials.map(([k, v]) => `<a href="${esc(v)}" target="_blank" rel="noopener" aria-label="${k}">${I[k] || I.spark}</a>`).join('')}</div>` : ''}</div>
+      <div><h2 class="fh">Informations</h2><ul><li><button class="linkbtn" type="button" data-open="dlg-mentions">Mentions légales</button></li><li><button class="linkbtn" type="button" data-open="dlg-privacy">Confidentialité</button></li><li><a href="${L(b, '#faq')}">Questions fréquentes</a></li></ul></div>
+    </div>
+    <div class="foot-bottom"><span>© ${new Date().getFullYear()} ${esc(cfg.nom)} · Sans cookie ni traceur</span><span class="made">${symOnly()}Site réalisé par ${esc(cfg.nom)}</span></div>
+  </div>
+</footer>`;
+const tabbarHtml = (b = '') => `<nav class="tabbar" aria-label="Navigation mobile">
+  <a href="${b ? '/' : '#top'}">${I.home}Accueil</a>
+  <a href="${L(b, '#services')}">${I.grid}Services</a>
+  <a class="tab-main" href="${L(b, '#contact')}"><span class="disc">${I.chat}</span>Projet</a>
+  <a href="${L(b, '#realisations')}">${I.folder}Réalisations</a>
+  <button type="button" data-open="dlg-menu" aria-haspopup="dialog">${I.menu}Menu</button>
+</nav>`;
+const dialogsHtml = (b = '') => `<dialog class="sheet" id="dlg-menu" aria-label="Menu">
+  <div class="grab"></div>
+  <nav>
+    ${[['#essayer', 'Essayez vous-même'], ['#services', 'Services'], ['#methode', 'Méthode'], ['#formules', 'Formules'], ['#realisations', 'Réalisations'], ['#apropos', 'À propos'], ['#faq', 'Questions fréquentes'], ['#contact', 'Parlons de votre projet']].map(([h, l]) => `<a href="${L(b, h)}">${l}${I.arrow}</a>`).join('')}
+  </nav>
+  <div class="sheet-foot"><button type="button" data-open="dlg-mentions">Mentions légales</button><button type="button" data-open="dlg-privacy">Confidentialité</button><button type="button" data-close>Fermer</button></div>
+</dialog>
+<dialog id="dlg-mentions" aria-labelledby="t-mentions"><div class="dlg-head"><h2 id="t-mentions">Mentions légales</h2><button class="x" type="button" data-close aria-label="Fermer">${I.x}</button></div><div class="dlg-body">${mentions}</div></dialog>
+<dialog id="dlg-privacy" aria-labelledby="t-privacy"><div class="dlg-head"><h2 id="t-privacy">Politique de confidentialité</h2><button class="x" type="button" data-close aria-label="Fermer">${I.x}</button></div><div class="dlg-body">${privacy}</div></dialog>`;
+// En-tête HTML des pages intérieures (chemins absolus, pas d'écran d'ouverture)
+const subHead = ({ title: t, description: dsc, pathName }) => `<!doctype html>
+<html lang="fr-BE" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>${esc(t)}</title>
+<meta name="description" content="${esc(dsc)}">
+${indexable ? '' : '<meta name="robots" content="noindex, nofollow">\n'}${siteUrl ? `<link rel="canonical" href="${siteUrl}${pathName}">\n` : ''}<meta name="theme-color" content="${C.nuit}">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_BE">
+<meta property="og:site_name" content="${esc(cfg.nom)}">
+<meta property="og:title" content="${esc(t)}">
+<meta property="og:description" content="${esc(dsc)}">
+<meta property="og:image" content="${siteUrl}/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/icone.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="preload" href="/fonts/jakarta-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+<style>:root{--paper:${C.papier};--night:${C.nuit};--accent:${C.accent}}</style>
+<script>document.documentElement.classList.replace('no-js','js')</script>
+<link rel="stylesheet" href="/styles.css">
+</head>`;
+const cfgScript = () => `<script type="application/json" id="cfg">${JSON.stringify(front).replace(/</g, '\\u003c')}</script>
+<script src="/app.js" defer></script>`;
+const caseHref = (w, b = '') => `${b}realisations/${w.id}/`;
+
+// Haut de page : vraies captures + logo qui se construit
+const heroBrowser = works.find((w) => w.id === 'pilotia') || works[0];
+const heroPhone = works.find((w) => w.id === 'lallat') || works.at(-1);
+
 const html = `<!doctype html>
 <html lang="fr-BE" class="no-js">
 <head>
@@ -241,15 +316,7 @@ ${indexable ? '' : '<meta name="robots" content="noindex, nofollow">\n'}${siteUr
   <button class="sp-skip" type="button" tabindex="-1">Passer</button>
 </div>
 
-<header class="top">
-  <div class="wrap">
-    <a class="brand" href="#top" aria-label="${esc(cfg.nom)}, retour en haut">${lockup()}</a>
-    <nav class="nav" aria-label="Navigation principale">
-      <a href="#services">Services</a><a href="#essayer">Essayez</a><a href="#methode">Méthode</a><a href="#formules">Formules</a><a href="#realisations">Réalisations</a><a href="#faq">FAQ</a>
-    </nav>
-    ${btn('Parlons de votre projet', '#contact', { cls: 'sm top-cta dark-btn' })}
-  </div>
-</header>
+${headerHtml()}
 
 <main id="contenu">
   <section class="hero dark" id="top" aria-labelledby="h1">
@@ -262,12 +329,14 @@ ${indexable ? '' : '<meta name="robots" content="noindex, nofollow">\n'}${siteUr
         <div class="hero-ctas enter" style="--d:.6s">${btn('Parlons de votre projet', '#contact')}${ghost('Voir les réalisations', '#realisations')}</div>
         <div class="hero-meta enter" style="--d:.75s"><span>${I.pin}${esc(cfg.zone)}</span><span>${I.phone}Pensé d'abord pour le téléphone</span><span>${I.shield}Sans cookie ni traceur</span></div>
       </div>
-      <div class="hero-art" aria-hidden="true">
+      <div class="hero-art showcase" aria-hidden="true">
         <div class="glow"></div>
-        ${symAnim('', '1.35s')}
+        ${heroBrowser ? `<div class="sc-browser browser" style="--d:.15s"><div class="bar"><i></i><i></i><i></i></div><img src="img/${heroBrowser.id}-ordi.jpg" width="1440" height="900" alt="" decoding="async" fetchpriority="high"></div>` : ''}
+        ${heroPhone ? `<div class="sc-phone" style="--d:.35s"><img src="img/${heroPhone.id}-mobile.jpg" width="390" height="844" alt="" decoding="async"></div>` : ''}
+        <div class="sc-mark">${symAnim('', '1.35s')}</div>
         <span class="chip c1" style="--d:1.2s">${I.logo}Logo</span>
         <span class="chip c2" style="--d:1.35s">${I.browser}Site web</span>
-        <span class="chip c3" style="--d:1.5s">${I.phone}Réseaux sociaux</span>
+        <span class="chip c3" style="--d:1.5s">${I.phone}Version mobile</span>
       </div>
     </div>
   </section>
@@ -311,7 +380,42 @@ ${indexable ? '' : '<meta name="robots" content="noindex, nofollow">\n'}${siteUr
     </div>
   </section>
 
-  <section class="sec" id="services" aria-labelledby="t-services" style="padding-top:0">
+  <section class="sec dark" id="marque" aria-labelledby="t-marque">
+    <div class="wrap">
+      <div class="trio-head" data-reveal>
+        <div>
+          <p class="kicker">Une seule ligne graphique</p>
+          <h2 class="h2" id="t-marque">Une marque. Trois supports.</h2>
+        </div>
+        <p class="lead">Le logo donne le ton, le site le développe, les visuels le font vivre sur les réseaux. Tout part du même dessin et des mêmes couleurs.</p>
+      </div>
+      <div class="trio">
+        <article class="trio-card" data-reveal>
+          <div class="trio-vis trio-logo" aria-hidden="true">${symOnly('trio-sym')}<span class="sw"><i style="background:var(--night)"></i><i style="background:var(--accent)"></i><i style="background:var(--paper)"></i></span></div>
+          <span class="num">01</span>
+          <h3>Logo et identité</h3>
+          <p>2 ou 3 pistes à comparer, puis couleurs, polices et fichiers prêts à l’emploi.</p>
+        </article>
+        <article class="trio-card" data-reveal style="--rd:.08s">
+          <div class="trio-vis trio-site">${works[0] ? `<img src="img/${(works.find((w) => w.id === 'jumeo') || works[0]).id}-ordi.jpg" width="1440" height="900" loading="lazy" decoding="async" alt="Capture d'un site réalisé : ${esc((works.find((w) => w.id === 'jumeo') || works[0]).nom)}">` : ''}</div>
+          <span class="num">02</span>
+          <h3>Site web</h3>
+          <p>Site vitrine ou landing page, rapide, animé, pensé d’abord pour le téléphone.</p>
+        </article>
+        <article class="trio-card" data-reveal style="--rd:.16s">
+          <div class="trio-vis trio-social" aria-hidden="true">
+            <span class="post"><i></i><b>Votre offre, en grand.</b></span>
+            <span class="story"><i></i><i></i><i></i></span>
+          </div>
+          <span class="num">03</span>
+          <h3>Visuels réseaux</h3>
+          <p>Publications et stories aux couleurs de la marque, plus la fiche Google soignée.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="services" aria-labelledby="t-services">
     <div class="wrap">
       <div class="sec-head" data-reveal>
         <p class="kicker">Services</p>
@@ -386,7 +490,7 @@ ${indexable ? '' : '<meta name="robots" content="noindex, nofollow">\n'}${siteUr
       <div class="sec-head" data-reveal>
         <p class="kicker">Réalisations</p>
         <h2 class="h2" id="t-realisations">Du vrai, rien que du vrai.</h2>
-        <p class="lead">Uniquement des projets réels, avec leurs vraies captures d'écran.</p>
+        <p class="lead">Uniquement des projets réels, avec leurs vraies captures d'écran. Chaque projet a sa page : le besoin, les choix, ce qui a été livré.</p>
       </div>
       <div class="works">
         ${works.map(workCard).join('')}
@@ -456,21 +560,35 @@ ${indexable ? '' : '<meta name="robots" content="noindex, nofollow">\n'}${siteUr
       </div>
       <form class="form" id="contact-form" novalidate data-reveal style="--rd:.1s">
         <input type="hidden" name="formule" value="">
-        <p class="grp">${I.user}Vos coordonnées</p>
-        <div class="f2">
-          <label class="field"><span>Prénom</span><input type="text" name="prenom" autocomplete="given-name" required></label>
-          <label class="field"><span>Téléphone ou e-mail</span><input type="text" name="joindre" autocomplete="email" inputmode="email" required></label>
+        <div class="fprog" aria-hidden="true"><span class="fprog-txt">Étape <b>1</b> sur 3</span><span class="fprog-bars"><i class="on"></i><i></i><i></i></span></div>
+        <div class="fstep" data-step="1" role="group" aria-labelledby="fs-1">
+          <p class="grp" id="fs-1" tabindex="-1">${I.spark}Votre projet</p>
+          <div class="field"><fieldset><legend>De quoi avez-vous besoin ? <small>(plusieurs choix possibles)</small></legend>
+            <div class="tiles">${projectTypes.map(([t, svg]) => `<label class="tile"><input type="checkbox" name="type" value="${t}"><span>${svg}${t}</span></label>`).join('')}</div>
+          </fieldset></div>
+          <div class="field"><fieldset><legend>Pour quand ? <small>(facultatif)</small></legend>
+            <div class="opts delais">${delais.map((t) => `<label class="opt"><input type="radio" name="delai" value="${t}"><span>${t}</span></label>`).join('')}</div>
+          </fieldset></div>
+          <label class="field"><span>Budget approximatif <small>(facultatif)</small></span><select name="budget"><option value="">Choisir…</option>${budgets.map((b) => `<option>${b}</option>`).join('')}</select></label>
         </div>
-        <p class="grp">${I.spark}Votre projet</p>
-        <div class="field"><fieldset><legend>Type de projet <small>(plusieurs choix possibles)</small></legend>
-          <div class="tiles">${projectTypes.map(([t, svg]) => `<label class="tile"><input type="checkbox" name="type" value="${t}"><span>${svg}${t}</span></label>`).join('')}</div>
-        </fieldset></div>
-        <label class="field"><span>Budget approximatif <small>(facultatif)</small></span><select name="budget"><option value="">Choisir…</option>${budgets.map((b) => `<option>${b}</option>`).join('')}</select></label>
-        <label class="field"><span>Votre message <small>(facultatif)</small></span><textarea name="message" rows="4" placeholder="Votre activité, ce que vous aimeriez, un site que vous aimez…"></textarea></label>
-        <label class="consent"><input type="checkbox" name="consent" required><span>J'accepte que ces informations servent uniquement à répondre à ma demande. Elles ne sont ni enregistrées sur ce site, ni vendues. <button type="button" data-open="dlg-privacy">Politique de confidentialité</button></span></label>
+        <div class="fstep" data-step="2" role="group" aria-labelledby="fs-2">
+          <p class="grp" id="fs-2" tabindex="-1">${I.user}Vos coordonnées</p>
+          <div class="f2">
+            <label class="field"><span>Prénom</span><input type="text" name="prenom" autocomplete="given-name" required></label>
+            <label class="field"><span>Téléphone ou e-mail</span><input type="text" name="joindre" autocomplete="email" inputmode="email" required></label>
+          </div>
+          <label class="field"><span>Votre activité, en quelques mots <small>(facultatif)</small></span><textarea name="message" rows="4" placeholder="Votre métier, ce que vous aimeriez, un site que vous aimez…"></textarea></label>
+        </div>
+        <div class="fstep" data-step="3" role="group" aria-labelledby="fs-3">
+          <p class="grp" id="fs-3" tabindex="-1">${I.chat}Votre message est prêt</p>
+          <div class="recap" aria-live="polite"></div>
+          <label class="consent"><input type="checkbox" name="consent" required><span>J'accepte que ces informations servent uniquement à répondre à ma demande. Elles ne sont ni enregistrées sur ce site, ni vendues. <button type="button" data-open="dlg-privacy">Politique de confidentialité</button></span></label>
+        </div>
         <p class="form-msg" role="status" aria-live="polite"></p>
         <div class="form-actions">
-          <button class="btn" type="submit"><span class="btn-label"><span data-t="Envoyer mon message">Envoyer mon message</span></span><span class="btn-arrow">${I.arrow}${I.arrow}</span></button>
+          <button class="btn ghost f-back" type="button" hidden><span class="btn-label"><span data-t="Retour">Retour</span></span></button>
+          <button class="btn f-next" type="button" hidden><span class="btn-label"><span data-t="Continuer">Continuer</span></span><span class="btn-arrow">${I.arrow}${I.arrow}</span></button>
+          <button class="btn f-send" type="submit"><span class="btn-label"><span data-t="Envoyer mon message">Envoyer mon message</span></span><span class="btn-arrow">${I.arrow}${I.arrow}</span></button>
           <button class="alt-link" type="button" hidden></button>
         </div>
       </form>
@@ -478,36 +596,11 @@ ${indexable ? '' : '<meta name="robots" content="noindex, nofollow">\n'}${siteUr
   </section>
 </main>
 
-<footer class="foot dark">
-  <div class="wrap">
-    <div class="foot-top">
-      <div class="foot-brand">${lockup()}<p>${esc(cfg.slogan)}</p></div>
-      <div><h2 class="fh">Le studio</h2><ul><li><a href="#services">Services</a></li><li><a href="#methode">Méthode</a></li><li><a href="#formules">Formules</a></li><li><a href="#realisations">Réalisations</a></li><li><a href="#apropos">À propos</a></li></ul></div>
-      <div><h2 class="fh">Contact</h2><ul><li><a href="#contact">Parlons de votre projet</a></li><li>${esc(cfg.zone)}</li>${cfg.ouverture && cfg.ouverture.bandeau ? `<li>${esc(cfg.ouverture.texte)}</li>` : ''}${ct.email ? `<li><a href="mailto:${esc(ct.email)}">${esc(ct.email)}</a></li>` : ''}</ul>
-        ${socials.length ? `<div class="socials" style="margin-top:16px">${socials.map(([k, v]) => `<a href="${esc(v)}" target="_blank" rel="noopener" aria-label="${k}">${I[k] || I.spark}</a>`).join('')}</div>` : ''}</div>
-      <div><h2 class="fh">Informations</h2><ul><li><button class="linkbtn" type="button" data-open="dlg-mentions">Mentions légales</button></li><li><button class="linkbtn" type="button" data-open="dlg-privacy">Confidentialité</button></li><li><a href="#faq">Questions fréquentes</a></li></ul></div>
-    </div>
-    <div class="foot-bottom"><span>© ${new Date().getFullYear()} ${esc(cfg.nom)} · Sans cookie ni traceur</span><span class="made">${symOnly()}Site réalisé par ${esc(cfg.nom)}</span></div>
-  </div>
-</footer>
+${footerHtml()}
 
-<nav class="tabbar" aria-label="Navigation mobile">
-  <a href="#top">${I.home}Accueil</a>
-  <a href="#services">${I.grid}Services</a>
-  <a class="tab-main" href="#contact"><span class="disc">${I.chat}</span>Projet</a>
-  <a href="#realisations">${I.folder}Réalisations</a>
-  <button type="button" data-open="dlg-menu" aria-haspopup="dialog">${I.menu}Menu</button>
-</nav>
+${tabbarHtml()}
 
-<dialog class="sheet" id="dlg-menu" aria-label="Menu">
-  <div class="grab"></div>
-  <nav>
-    ${[['#essayer', 'Essayez vous-même'], ['#services', 'Services'], ['#methode', 'Méthode'], ['#formules', 'Formules'], ['#realisations', 'Réalisations'], ['#apropos', 'À propos'], ['#faq', 'Questions fréquentes'], ['#contact', 'Parlons de votre projet']].map(([h, l]) => `<a href="${h}">${l}${I.arrow}</a>`).join('')}
-  </nav>
-  <div class="sheet-foot"><button type="button" data-open="dlg-mentions">Mentions légales</button><button type="button" data-open="dlg-privacy">Confidentialité</button><button type="button" data-close>Fermer</button></div>
-</dialog>
-<dialog id="dlg-mentions" aria-labelledby="t-mentions"><div class="dlg-head"><h2 id="t-mentions">Mentions légales</h2><button class="x" type="button" data-close aria-label="Fermer">${I.x}</button></div><div class="dlg-body">${mentions}</div></dialog>
-<dialog id="dlg-privacy" aria-labelledby="t-privacy"><div class="dlg-head"><h2 id="t-privacy">Politique de confidentialité</h2><button class="x" type="button" data-close aria-label="Fermer">${I.x}</button></div><div class="dlg-body">${privacy}</div></dialog>
+${dialogsHtml()}
 
 <script type="application/json" id="cfg">${JSON.stringify(front).replace(/</g, '\\u003c')}</script>
 <script src="app.js" defer></script>
@@ -515,6 +608,129 @@ ${indexable ? '' : '<meta name="robots" content="noindex, nofollow">\n'}${siteUr
 </html>
 `;
 fs.writeFileSync(path.join(dist, 'index.html'), html);
+
+// ---------- Pages « étude de cas » (une par réalisation affichée) ----------
+const back = I.arrow.replace('<svg', '<svg style="transform:rotate(180deg)"');
+works.forEach((w, i) => {
+  const next = works.length > 1 ? works[(i + 1) % works.length] : null;
+  const hasMobile = fs.existsSync(path.join(dist, 'img', `${w.id}-mobile.jpg`));
+  const collab = cfg.partenaire && cfg.partenaire.afficher && w.id === String(cfg.partenaire.nom).toLowerCase();
+  const meta = [
+    ['Secteur', w.secteur],
+    ['Livré', w.livre],
+    ['Statut', w.statut],
+    ...(collab ? [['Collaboration', `${cfg.nom} × ${cfg.partenaire.nom}`]] : []),
+  ].filter(([, v]) => v);
+  const page = `${subHead({
+    title: `${w.nom} : étude de cas · ${cfg.nom}`,
+    description: `${w.nom} (${w.secteur}) : ${w.besoin}`,
+    pathName: '/' + caseHref(w),
+  })}
+<body>
+<a class="skip" href="#contenu">Aller au contenu</a>
+${headerHtml('/')}
+<main id="contenu">
+  <section class="case-hero" aria-labelledby="h1">
+    <div class="wrap">
+      <a class="back" href="/#realisations">${back}Toutes les réalisations</a>
+      <p class="kicker">Étude de cas${w.statut ? ' · ' + esc(w.statut) : ''}</p>
+      <div class="case-title">
+        <div><h1 class="case-h1" id="h1">${esc(w.nom)}</h1><p class="lead">${esc(w.besoin)}</p></div>
+        ${w.lien ? btn('Voir le site', esc(w.lien), { cls: 'dark-btn', attrs: 'target="_blank" rel="noopener"' }) : ''}
+      </div>
+      <dl class="case-meta">${meta.map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>
+    </div>
+  </section>
+  <section class="case-shot" aria-label="Capture sur ordinateur">
+    <div class="wrap"><div class="browser"><div class="bar"><i></i><i></i><i></i></div><img src="/img/${w.id}-ordi.jpg" width="1440" height="900" decoding="async" fetchpriority="high" alt="Page d'accueil du site ${esc(w.nom)} sur ordinateur"></div></div>
+  </section>
+  <section class="sec case-body" aria-label="Le projet">
+    <div class="wrap">
+      <div class="case-cols">
+        <div data-reveal><h2 class="case-h2">Le besoin</h2><p>${esc(w.besoin)}</p></div>
+        <div data-reveal style="--rd:.08s"><h2 class="case-h2">Ce qui a été fait</h2><p>${esc(w.fait)}</p></div>
+      </div>
+      ${(w.points || []).length ? `<ul class="case-points">${w.points.map((p, j) => `<li data-reveal style="--rd:${j * 0.06}s">${I.checkRound}<span>${esc(p)}</span></li>`).join('')}</ul>` : ''}
+    </div>
+  </section>
+  ${hasMobile ? `<section class="sec dark case-mobile" aria-labelledby="t-mobile">
+    <div class="wrap">
+      <div class="case-phone" data-reveal><img src="/img/${w.id}-mobile.jpg" width="390" height="844" loading="lazy" decoding="async" alt="Le site ${esc(w.nom)} sur téléphone"></div>
+      <div data-reveal style="--rd:.1s">
+        <p class="kicker">Sur téléphone</p>
+        <h2 class="h2" id="t-mobile">Pensé d’abord pour le téléphone.</h2>
+        ${w.mobile ? `<p class="lead">${esc(w.mobile)}</p>` : ''}
+      </div>
+    </div>
+  </section>` : ''}
+  ${next ? `<section class="sec case-next" aria-label="Étude suivante">
+    <div class="wrap">
+      <a class="next-card" href="/${caseHref(next)}" data-reveal>
+        <img src="/img/${next.id}-ordi.jpg" width="1440" height="900" loading="lazy" decoding="async" alt="">
+        <span class="next-txt"><small>Étude suivante</small><b>${esc(next.nom)}</b><span>${esc(next.secteur)}</span><span class="next-go">Lire l’étude de cas ${I.arrow}</span></span>
+      </a>
+    </div>
+  </section>` : ''}
+  <section class="cta-wrap" aria-labelledby="t-cta">
+    <div class="wrap">
+      <div class="cta-band" data-reveal>
+        <div><h2 class="h2" id="t-cta">Parlons de votre projet.</h2><p>Quelques questions simples, puis un devis clair.</p></div>
+        ${btn('Parlons de votre projet', '/#contact', { cls: 'dark-btn' })}
+      </div>
+    </div>
+  </section>
+</main>
+${footerHtml('/')}
+${tabbarHtml('/')}
+${dialogsHtml('/')}
+${cfgScript()}
+</body>
+</html>
+`;
+  fs.mkdirSync(path.join(dist, 'realisations', w.id), { recursive: true });
+  fs.writeFileSync(path.join(dist, 'realisations', w.id, 'index.html'), page);
+});
+
+// ---------- Page « liens » pour la bio Instagram ----------
+{
+  const ig = (ct.instagram || '').replace(/^@/, '');
+  const p = cfg.partenaire && cfg.partenaire.afficher ? cfg.partenaire : null;
+  const rings = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke-width="1.8"><circle cx="9" cy="12" r="6" stroke="#4FD1E8"/><circle cx="15" cy="12" r="6" stroke="currentColor"/></svg>';
+  const lk = (href, ico, t, sm, ext = false) => `<a class="lk" href="${href}"${ext ? ' target="_blank" rel="noopener"' : ''}>${ico}<span>${t}<small>${sm}</small></span>${I.arrow}</a>`;
+  const page = `${subHead({
+    title: `${cfg.nom} · Liens`,
+    description: `${cfg.nom} : logo, identité visuelle, site web et visuels. ${cfg.zone}.`,
+    pathName: '/liens/',
+  })}
+<body class="dark links-page">
+<main class="links" id="contenu">
+  <div class="links-id">
+    <span class="links-avatar">${symOnly()}</span>
+    <h1>${esc(cfg.nom)}</h1>
+    <p>${esc(cfg.slogan)} · ${esc(cfg.zone)}</p>
+    ${cfg.ouverture && cfg.ouverture.bandeau ? `<p class="pill"><i aria-hidden="true"></i>${esc(cfg.ouverture.texte)}</p>` : ''}
+  </div>
+  <nav class="links-list" aria-label="Liens">
+    <a class="lk lk-main" href="/#contact"><span>Parlons de votre projet<small>Le formulaire prépare votre message</small></span><span class="lk-disc">${I.arrow}</span></a>
+    ${ig ? lk(`https://ig.me/m/${esc(ig)}`, I.instagram, 'Écrire sur Instagram', '@' + esc(ig), true) : ''}
+    ${lk('/', I.browser, 'Le site du studio', 'Services, méthode, formules')}
+    ${lk('/#realisations', I.folder, 'Réalisations', works.map((w) => esc(w.nom)).join(', '))}
+    ${p ? lk(esc(p.lien), rings, `${esc(cfg.nom)} × ${esc(p.nom)}`, 'Stratégie + création', true) : ''}
+  </nav>
+  ${works.length ? `<div class="links-works">
+    <h2 class="links-label">Études de cas</h2>
+    <div class="lw-grid">${works.map((w) => `<a href="/${caseHref(w)}"><img src="/img/${w.id}-mobile.jpg" width="390" height="844" loading="lazy" decoding="async" alt=""><span>${esc(w.nom)}</span></a>`).join('')}</div>
+  </div>` : ''}
+  <p class="links-foot"><span>Sans cookie ni traceur</span><button class="linkbtn" type="button" data-open="dlg-mentions">Mentions légales</button><button class="linkbtn" type="button" data-open="dlg-privacy">Confidentialité</button></p>
+</main>
+${dialogsHtml('/')}
+${cfgScript()}
+</body>
+</html>
+`;
+  fs.mkdirSync(path.join(dist, 'liens'), { recursive: true });
+  fs.writeFileSync(path.join(dist, 'liens', 'index.html'), page);
+}
 
 // ---------- Fichiers statiques ----------
 fs.copyFileSync(path.join(src, 'styles.css'), path.join(dist, 'styles.css'));
@@ -555,7 +771,7 @@ e.respondWith(caches.match(r).then(m=>m||fetch(r).then(res=>{const c=res.clone()
 fs.writeFileSync(path.join(dist, 'robots.txt'), indexable
   ? `User-agent: *\nAllow: /\n${siteUrl ? `Sitemap: ${siteUrl}/sitemap.xml\n` : ''}`
   : `# Site en préparation : non référencé (balise noindex sur chaque page).\nUser-agent: *\nAllow: /\n`);
-if (siteUrl) fs.writeFileSync(path.join(dist, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${siteUrl}/</loc><lastmod>${today}</lastmod></url>\n</urlset>\n`);
+if (siteUrl) fs.writeFileSync(path.join(dist, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${['/', ...works.map((w) => '/' + caseHref(w)), '/liens/'].map((u) => `  <url><loc>${siteUrl}${u}</loc><lastmod>${today}</lastmod></url>`).join('\n')}\n</urlset>\n`);
 
 fs.writeFileSync(path.join(dist, '404.html'), `<!doctype html><html lang="fr-BE"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>Page introuvable · ${esc(cfg.nom)}</title><link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/styles.css"><style>:root{--paper:${C.papier};--night:${C.nuit};--accent:${C.accent}}body{min-height:100svh;display:grid;place-items:center;text-align:center;padding:24px}</style></head><body class="dark"><main><a href="/" aria-label="${esc(cfg.nom)}" style="display:inline-block;color:var(--paper)">${lockup().replace('<svg', '<svg style="height:40px;width:auto"')}</a><h1 class="h2" style="margin:28px auto 0">Cette page n'existe pas.</h1><p style="margin-top:28px">${btn("Retour à l'accueil", '/')}</p></main></body></html>`);
 
@@ -594,4 +810,4 @@ await page.screenshot({ path: path.join(dist, 'og.png') });
 await browser.close();
 fs.rmSync(path.join(dist, '_og.html'));
 
-console.log(`OK : site/dist (${works.length} réalisation(s) affichée(s), ${indexable ? 'référencé' : 'NON référencé'})`);
+console.log(`OK : site/dist (${works.length} réalisation(s) affichée(s), ${works.length} étude(s) de cas, page /liens, ${indexable ? 'référencé' : 'NON référencé'})`);

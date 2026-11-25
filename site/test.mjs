@@ -152,17 +152,27 @@ for (const [name, vp, scale] of [['ordinateur', { width: 1440, height: 900 }, 1]
   // ici on teste la logique du formulaire, pas les animations : défilement instantané
   await p2.addStyleTag({ content: 'html{scroll-behavior:auto!important}*{transition:none!important}' });
   await p2.waitForTimeout(1000);
-  await p2.click('#contact-form button[type=submit]');
-  ok('Formulaire : refuse un envoi vide', (await p2.textContent('.form-msg')).length > 5 && !(await p2.evaluate(() => window.__opened)));
+  ok('Formulaire : 3 étapes, seule la première est visible', await p2.locator('.fstep[data-step="1"]').isVisible() && !(await p2.locator('.fstep[data-step="2"]').isVisible()) && !(await p2.locator('.f-send').isVisible()));
+  await p2.click('.f-next');
+  ok('Formulaire : refuse de passer sans type de projet', (await p2.textContent('.form-msg')).length > 5 && await p2.locator('.fstep[data-step="1"]').isVisible());
+  await p2.check('input[name=type][value="Site vitrine"]', { force: true });
+  await p2.locator('label.opt', { hasText: 'Dans 1 à 3 mois' }).click();
+  await p2.selectOption('select[name=budget]', { index: 2 });
+  await p2.locator('#contact-form').screenshot({ path: path.join(out, 'formulaire-etape-1.png') });
+  await p2.click('.f-next');
+  await p2.click('.f-next');
+  ok('Formulaire : refuse de passer sans coordonnées', await p2.locator('.fstep[data-step="2"]').isVisible() && !(await p2.locator('.fstep[data-step="3"]').isVisible()));
   await p2.fill('input[name=prenom]', 'Camille');
   await p2.fill('input[name=joindre]', '0470 12 34 56');
-  await p2.check('input[name=type][value="Site vitrine"]', { force: true });
-  await p2.selectOption('select[name=budget]', { index: 2 });
   await p2.fill('textarea[name=message]', 'Je lance mon activité de menuiserie.');
-  await p2.click('#contact-form button[type=submit]');
+  await p2.click('.f-next');
+  const recap = await p2.textContent('.recap');
+  ok('Formulaire : récapitulatif du message à la dernière étape', recap.includes('Camille') && recap.includes('Dans 1 à 3 mois'), recap.replace(/\n/g, ' / '));
+  await p2.locator('#contact-form').screenshot({ path: path.join(out, 'formulaire-etape-3.png') });
+  await p2.click('.f-send');
   ok('Formulaire : refuse sans la case de consentement', !(await p2.evaluate(() => window.__opened)));
   await p2.check('input[name=consent]');
-  await p2.click('#contact-form button[type=submit]');
+  await p2.click('.f-send');
   const url = await p2.evaluate(() => window.__opened || '');
   await p2.waitForTimeout(300);
   const text = await p2.evaluate(() => navigator.clipboard.readText()).catch(() => '');
@@ -171,6 +181,39 @@ for (const [name, vp, scale] of [['ordinateur', { width: 1440, height: 900 }, 1]
   await p2.click('.alt-link');
   ok('Formulaire : e-mail en secours (« ' + (await p2.textContent('.alt-link')) + ' »)', (await p2.evaluate(() => window.__lastContactUrl)).startsWith('mailto:test@example.com'));
   await p2.context().close();
+}
+
+// 4 bis. Pages intérieures : études de cas et page « liens »
+{
+  const home = await newPage({ viewport: { width: 1440, height: 900 } });
+  await home.goto(base);
+  const casePaths = await home.evaluate(() => [...new Set([...document.querySelectorAll('a[href^="realisations/"]')].map((a) => a.getAttribute('href')))]);
+  await home.context().close();
+  ok('Accueil : un lien vers chaque étude de cas', casePaths.length >= 1, casePaths.join(', '));
+  for (const p of [...casePaths.map((c) => '/' + c), '/liens/']) {
+    const slug = p.replace(/\//g, '-').replace(/^-|-$/g, '') || 'accueil';
+    for (const [name, vp, scale] of [['ordinateur', { width: 1440, height: 900 }, 1], ['mobile-390', { width: 390, height: 844 }, 2]]) {
+      const page = await newPage({ viewport: vp, deviceScaleFactor: scale, hasTouch: name !== 'ordinateur', isMobile: name !== 'ordinateur' });
+      const r = await page.goto(base + p.slice(1));
+      await revealAll(page);
+      const sw = await page.evaluate(() => [document.documentElement.scrollWidth, window.innerWidth]);
+      ok(`${p} ${name} : page trouvée, pas de défilement horizontal`, r.status() === 200 && sw[0] <= sw[1], `${sw[0]} / ${sw[1]} px`);
+      await page.screenshot({ path: path.join(out, `${slug}-${name}.png`), fullPage: true });
+      const hrefs = await page.evaluate(() => [...document.querySelectorAll('a[href^="/"]')].map((a) => a.getAttribute('href')));
+      const bad = [];
+      for (const h of new Set(hrefs)) { const res = await page.request.get(base + h.slice(1).split('#')[0]); if (res.status() !== 200) bad.push(h); }
+      ok(`${p} ${name} : tous les liens du site répondent`, bad.length === 0, bad.join(', '));
+      await page.addScriptTag({ content: axeSrc });
+      const ax = await page.evaluate(async () => { const r = await window.axe.run(document, { resultTypes: ['violations'] }); return r.violations.map((v) => `${v.id} (${v.impact}, ${v.nodes.length}) : ${v.nodes.slice(0, 3).map((n) => n.target.join(' ')).join(' | ')}`); });
+      ok(`${p} ${name} : accessibilité`, ax.length === 0, ax.join(' ; '));
+      if (name !== 'ordinateur' && p !== '/liens/') {
+        await page.click('.tabbar button[data-open="dlg-menu"]');
+        await page.waitForTimeout(500);
+        ok(`${p} mobile : panneau Menu s’ouvre`, await page.locator('#dlg-menu').isVisible());
+      }
+      await page.context().close();
+    }
+  }
 }
 
 // 5. Fenêtres légales

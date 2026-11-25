@@ -157,10 +157,14 @@
     setMetier('artisan', false);
   }
 
-  /* ---------- formulaire de contact : message prêt dans WhatsApp, e-mail en secours ---------- */
+  /* ---------- formulaire de contact en 3 étapes : message prêt (Instagram, WhatsApp, e-mail) ---------- */
   var form = $('#contact-form');
   if (form) {
-    var msg = $('.form-msg', form), btn = $('button[type="submit"]', form), alt = $('.alt-link', form);
+    var msg = $('.form-msg', form), btn = $('.f-send', form), alt = $('.alt-link', form);
+    var nextB = $('.f-next', form), backB = $('.f-back', form);
+    var stepEls = $$('.fstep', form), recap = $('.recap', form);
+    var progTxt = $('.fprog-txt b', form), bars = $$('.fprog-bars i', form);
+    var step = 1, LAST = stepEls.length || 1;
     var LABELS = { ig: 'Envoyer sur Instagram', wa: 'Envoyer sur WhatsApp', mail: 'Envoyer par e-mail' };
     var ALT = { wa: 'ou par WhatsApp', mail: 'ou par e-mail' };
     var channels = [];
@@ -173,42 +177,71 @@
       show('info', CFG.bientot || 'Le formulaire sera actif très bientôt.');
     } else {
       lb.textContent = LABELS[channels[0]]; lb.setAttribute('data-t', LABELS[channels[0]]);
-      if (channels[1] && alt) { alt.textContent = ALT[channels[1]]; alt.hidden = false; }
     }
     $$('[data-formule]').forEach(function (a) {
       a.addEventListener('click', function () { form.elements.formule.value = a.getAttribute('data-formule'); });
     });
     function show(type, text) { msg.className = 'form-msg show ' + type; msg.textContent = text; }
+    function hide() { if (!/info/.test(msg.className)) { msg.className = 'form-msg'; msg.textContent = ''; } }
     function val(name) { var el = form.elements[name]; return el ? String(el.value || '').trim() : ''; }
+    function radio(name) { var r = $('input[name="' + name + '"]:checked', form); return r ? r.value : ''; }
     function build() {
       var types = $$('input[name="type"]:checked', form).map(function (i) { return i.value; });
       var lines = ['Bonjour, je suis ' + val('prenom') + '.'];
       if (types.length) lines.push('Projet : ' + types.join(', '));
       if (val('formule')) lines.push('Formule qui m’intéresse : ' + val('formule'));
+      if (radio('delai')) lines.push('Délai : ' + radio('delai'));
       if (val('budget')) lines.push('Budget approximatif : ' + val('budget'));
       if (val('message')) lines.push('', val('message'));
       lines.push('', 'Me recontacter : ' + val('joindre'), '(Message préparé sur le site ' + (CFG.nom || '') + ')');
       return lines.join('\n');
     }
-    function check() {
-      var ok = true;
+    // Vérifie une étape (ou toutes si s = 0) ; renvoie le numéro de la première étape en défaut, ou 0.
+    function check(s) {
+      var badStep = 0;
       $$('.field', form).forEach(function (f) { f.classList.remove('bad'); });
-      function bad(name, text) {
+      function bad(st, name, text) {
+        if (badStep) return;
+        badStep = st;
         var el = form.elements[name];
         var first = el && (el.tagName ? el : el[0]);
-        if (ok) { show('err', text); if (first && first.focus) first.focus(); }
-        ok = false;
+        if (st === step) { show('err', text); if (first && first.focus) first.focus(); }
+        else { goTo(st); show('err', text); if (first && first.focus) first.focus(); }
         var f = first && first.closest && first.closest('.field');
         if (f) f.classList.add('bad');
       }
-      if (!val('prenom')) bad('prenom', 'Indiquez votre prénom.');
-      var j = val('joindre');
-      if (!j) bad('joindre', 'Indiquez un téléphone ou un e-mail pour vous recontacter.');
-      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(j) && (j.replace(/\D/g, '').length < 8)) bad('joindre', 'Ce téléphone ou cet e-mail semble incomplet.');
-      if (!$$('input[name="type"]:checked', form).length) bad('type', 'Choisissez au moins un type de projet (ou « Je ne sais pas encore »).');
-      if (!form.elements.consent.checked) bad('consent', 'Cochez la case pour accepter l’utilisation de vos informations.');
-      return ok;
+      if ((!s || s === 1) && !$$('input[name="type"]:checked', form).length) bad(1, 'type', 'Choisissez au moins un type de projet (ou « Je ne sais pas encore »).');
+      if (!s || s === 2) {
+        if (!val('prenom')) bad(2, 'prenom', 'Indiquez votre prénom.');
+        var j = val('joindre');
+        if (!j) bad(2, 'joindre', 'Indiquez un téléphone ou un e-mail pour vous recontacter.');
+        else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(j) && (j.replace(/\D/g, '').length < 8)) bad(2, 'joindre', 'Ce téléphone ou cet e-mail semble incomplet.');
+      }
+      if ((!s || s === 3) && !form.elements.consent.checked) bad(3, 'consent', 'Cochez la case pour accepter l’utilisation de vos informations.');
+      return badStep;
     }
+    function goTo(n, focus) {
+      step = Math.max(1, Math.min(LAST, n));
+      stepEls.forEach(function (el, i) { el.hidden = i + 1 !== step; });
+      if (progTxt) progTxt.textContent = step;
+      bars.forEach(function (b, i) { b.classList.toggle('on', i < step); });
+      backB.hidden = step === 1;
+      nextB.hidden = step === LAST;
+      btn.hidden = step !== LAST;
+      if (alt) alt.hidden = !(step === LAST && channels[1]);
+      if (alt && channels[1]) alt.textContent = ALT[channels[1]];
+      if (step === LAST && recap) recap.textContent = build();
+      if (focus) {
+        var h = $('.grp', stepEls[step - 1]);
+        if (h) h.focus({ preventScroll: true });
+        var r = form.getBoundingClientRect();
+        if (r.top < 60 || r.top > window.innerHeight * 0.5) form.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      }
+    }
+    form.classList.add('stepped');
+    goTo(1);
+    nextB.addEventListener('click', function () { if (check(step)) return; hide(); goTo(step + 1, true); });
+    backB.addEventListener('click', function () { hide(); goTo(step - 1, true); });
     function copy(text) {
       try { if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(text).catch(fallback); return; } } catch (e) {}
       fallback();
@@ -218,7 +251,7 @@
       }
     }
     function go(channel) {
-      if (!check()) return;
+      if (check(0)) return;
       var text = build(), url;
       if (channel === 'ig') url = 'https://ig.me/m/' + encodeURIComponent(CFG.instagram);
       else if (channel === 'wa') url = 'https://wa.me/' + CFG.whatsapp.replace(/\D/g, '') + '?text=' + encodeURIComponent(text);
@@ -231,12 +264,17 @@
       if (channel === 'mail') { window.location.href = url; return; }
       var w = window.open(url, '_blank', 'noopener'); if (!w) window.location.href = url;
     }
-    form.addEventListener('submit', function (e) { e.preventDefault(); if (btn.disabled) return; go(channels[0]); });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (step < LAST) { nextB.click(); return; }   // touche Entrée avant la dernière étape : on avance
+      if (btn.disabled) return;
+      go(channels[0]);
+    });
     if (alt) alt.addEventListener('click', function () { if (channels[1]) go(channels[1]); });
   }
 
   /* ---------- site installable (PWA) ---------- */
   if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
-    window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+    window.addEventListener('load', function () { navigator.serviceWorker.register('/sw.js').catch(function () {}); });
   }
 })();
