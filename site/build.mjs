@@ -324,6 +324,8 @@ ${headerHtml()}
 <main id="contenu">
   <section class="hero dark" id="top" aria-labelledby="h1">
     <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-light" aria-hidden="true"></div>
+    <svg class="ny-ghost" viewBox="8 14 104 92" aria-hidden="true"><path pathLength="1" d="M18 98V22l48 76V40"/><path pathLength="1" d="M102 22 78 62v36M54 22 78 62"/></svg>
     <div class="wrap">
       <div>
         ${cfg.ouverture && cfg.ouverture.bandeau ? `<p class="pill enter" style="--d:.05s"><i aria-hidden="true"></i>${esc(cfg.ouverture.texte)}</p>` : `<p class="pill enter"><i aria-hidden="true"></i>Studio de création · ${esc(cfg.ville)}</p>`}
@@ -343,6 +345,8 @@ ${headerHtml()}
       </div>
     </div>
   </section>
+
+  <div class="band dark" aria-hidden="true"><div class="band-track">${[0, 1].map(() => `<span class="band-run">${['Logo', 'Identité visuelle', 'Site web', 'Landing page', 'Visuels réseaux', 'Fiche Google'].map((w, i) => `<span class="bw${i % 2 ? ' o' : ''}">${w}</span><span class="bs">${symOnly()}</span>`).join('')}</span>`).join('')}</div></div>
 
   <section class="sec" id="essayer" aria-labelledby="t-essayer">
     <div class="wrap try">

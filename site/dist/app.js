@@ -273,6 +273,26 @@
     if (alt) alt.addEventListener('click', function () { if (channels[1]) go(channels[1]); });
   }
 
+  /* ---------- profondeur : les captures du haut suivent la souris (ordinateur seulement) ---------- */
+  var show = $('.showcase'), ghost = $('.ny-ghost');
+  if (show && !reduce && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    var hero = $('.hero'), pend = false, px = 0, py = 0;
+    hero.addEventListener('pointermove', function (e) {
+      var r = hero.getBoundingClientRect();
+      px = ((e.clientX - r.left) / r.width - 0.5) * 2; py = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      if (!pend) { pend = true; requestAnimationFrame(function () { show.style.setProperty('--px', px.toFixed(3)); show.style.setProperty('--py', py.toFixed(3)); pend = false; }); }
+    });
+    hero.addEventListener('pointerleave', function () { show.style.setProperty('--px', 0); show.style.setProperty('--py', 0); });
+  }
+  /* le grand NY glisse plus lentement que la page (une seule transformation, uniquement dans le haut de page) */
+  if (ghost && !reduce) {
+    var gt = false;
+    window.addEventListener('scroll', function () {
+      if (gt) return; gt = true;
+      requestAnimationFrame(function () { var y = window.scrollY; if (y < window.innerHeight * 1.3) ghost.style.setProperty('--gy', (y * 0.25).toFixed(1) + 'px'); gt = false; });
+    }, { passive: true });
+  }
+
   /* ---------- site installable (PWA) ---------- */
   if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
     window.addEventListener('load', function () { navigator.serviceWorker.register('/sw.js').catch(function () {}); });
